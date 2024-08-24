@@ -4,4 +4,10 @@
 
 INTRODUCTION
 
-  Our goal is to create a virtual reality software that can have an endless amount of real world applications. Ranging from aiding in the medical field, as a physiotherapy aid, as well functioning as a test environment for not only new technologies but also a practice space for companies to have their trainees familiarize themselves with their tools and technologies before going hands on with the real thing.
+Our goal will be to create a self help app that will allow users with several aspects of their lives, such as help completing daily tasks 
+and even more complex things such as VR environments that will serve
+as therapeutic tools for both mental and motor function recovery
+treatment. We aim to help people that may be dealing with conditions
+that may be affecting their day-to-day lives, like ADHD or just stress
+by giving them access to easy to use wellness tools that will allow them
+to regain control of their lives.
