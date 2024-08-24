@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Checklist</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <h1>Task Checklist</h1>
+    <ul id="taskList">
+        <li><input type="checkbox" id="task1"> Task 1</li>
+        <li><input type="checkbox" id="task2"> Task 2</li>
+        <li><input type="checkbox" id="task3"> Task 3</li>
+        <li><input type="checkbox" id="task4"> Task 4</li>
+        <li><input type="checkbox" id="task5"> Task 5</li>
+        <li><input type="checkbox" id="task6"> Task 6</li>
+        <li><input type="checkbox" id="task7"> Task 7</li>
+    </ul>
+
+    <button id="saveButton">Save Progress</button>
+
+    <script>
+        document.getElementById('saveButton').addEventListener('click', function() {
+            alert('Progress saved!');
+            // Here you can add functionality to save the state of the checkboxes, if needed
+        });
+    </script>
+</body>
+</html>
+

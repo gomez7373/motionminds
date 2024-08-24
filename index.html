@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Accessibility features for users with disabilities">
+    <title>Accessibility Menu</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Link to your CSS file -->
+</head>
+<body>
+
+    <!-- Displaying Hello, World! -->
+    <h1>Hello, World!</h1>
+
+    <!-- Introduction Paragraph -->
+    <p id="intro-paragraph" data-mode="default">
+        Welcome to the MotionMinds accessibility and task management tool. Use the menu below to adjust accessibility settings or click the button to manage your tasks.
+    </p>
+
+    <!-- Accessibility Button -->
+    <button id="INDmenu-btn" aria-expanded="false" aria-haspopup="true">Accessibility Menu</button>
+
+    <!-- Placeholder for Accessibility Menu -->
+    <div id="INDmenu">
+        <ul>
+            <li><button id="increaseTextBtn">Increase Text Size</button></li>
+            <li><button id="decreaseTextBtn">Decrease Text Size</button></li>
+            <li><button id="highContrastBtn">High Contrast</button></li>
+            <li><button id="normalContrastBtn">Normal Contrast</button></li>
+        </ul>
+    </div>
+
+    <!-- Checklist Button -->
+    <button id="checklistButton">Go to Checklist</button>
+
+    <!-- Include the accessibility script -->
+    <script src="accessibility.js"></script>
+
+    <!-- Script to handle checklist button navigation -->
+    <script>
+        document.getElementById('checklistButton').addEventListener('click', function() {
+            window.location.href = 'checklist.html'; // Navigate to the checklist page
+        });
+    </script>
+
+</body>
+</html>
