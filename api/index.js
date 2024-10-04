@@ -1,5 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const User = require('./models/user.model');
+
 
 const app = express();
 const port = 3000;
@@ -25,3 +27,10 @@ mongoose.connect("mongodb+srv://7370:admin@cluster0.xqmsd.mongodb.net/motionmind
 .catch(() => {
     console.log("Connection failed");
 });
+
+// run()
+async function run(){
+
+    const user = await User.create({ name: "Jane Doe", email: "jane@mail.com", password: "password", location: "Lagos", date_of_birth: "1992-01-01" });
+    console.log(user);
+}
