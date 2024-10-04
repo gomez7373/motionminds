@@ -12,6 +12,7 @@ const todoSchema = new mongoose.Schema({
     },
     date_created: {
         type: Date,
+        immutable: true,
         default: Date.now
     },
     is_completed: {
@@ -19,3 +20,5 @@ const todoSchema = new mongoose.Schema({
         default: false
     }
 });
+
+module.exports = mongoose.model('Todo', todoSchema);
