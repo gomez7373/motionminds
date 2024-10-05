@@ -1,13 +1,13 @@
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
-    name: {
+    username: {
         type: String,
         required: true
     },
     email: {
         type: String,
-        require: true
+        require: false
     },
     password: {
         type: String,
@@ -15,7 +15,7 @@ const userSchema = new mongoose.Schema({
     },
     location: {
         type: String,
-        require: true
+        require: false
     },
     date_of_birth: {
         type: Date,
@@ -23,12 +23,18 @@ const userSchema = new mongoose.Schema({
     },
     date_created: {
         type: Date,
+        immutable: true,
         default: Date.now
     },
     last_login: {
         type: Date,
         default: Date.now
     }
+});
+
+userSchema.pre('save', function(next) {
+    this.last_login = Date.now();
+    next();
 });
 
 module.exports = mongoose.model('User', userSchema);
