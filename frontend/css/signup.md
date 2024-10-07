@@ -1,6 +1,5 @@
-/* Login Page Styling */
 form {
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.1);
     padding: 25px;
     border-radius: 15px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
@@ -8,18 +7,12 @@ form {
     margin-top: 30px;
 }
 
-.input-container {
-    margin-bottom: 15px;
-}
-
-label {
-    font-size: 14px;
-    margin-bottom: 5px;
-    display: block;
-}
-
+input[type="text"],
 input[type="email"],
-input[type="password"] {
+input[type="number"],
+input[type="tel"],
+input[type="password"],
+select {
     width: 100%;
     padding: 12px;
     border-radius: 5px;
@@ -28,17 +21,17 @@ input[type="password"] {
     box-sizing: border-box;
 }
 
-.login-button {
+.signup-button {
     width: 100%;
     padding: 15px;
-    background-color: #007bff;
+    background-color: #007080;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    color: #fff;
+    color: #ffffff;
     font-size: 18px;
 }
 
-.login-button:hover {
+.signup-button:hover {
     background-color: #0056b3;
 }

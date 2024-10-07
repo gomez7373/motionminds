@@ -1,4 +1,3 @@
-/* Virtual Spaces Page Styling */
 .space-options {
     display: flex;
     gap: 30px;
@@ -11,7 +10,7 @@
     border-radius: 10px;
     cursor: pointer;
     transition: transform 0.2s, background-color 0.3s;
-    color: #fff;
+    color: #ffffff;
     font-size: 20px;
     text-align: center;
 }
