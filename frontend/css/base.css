@@ -38,7 +38,7 @@ body {
     text-decoration: none;
     font-size: 18px;
     display: block;
-    transition: background-color 0.3s, color 0.3s;
+    transition: background-color 0.5s ease, color 0.3s;
 }
 
 .side-menu a:hover {

@@ -8,7 +8,7 @@ const signUp = async (req, res) => {
     }
 
     const data = req.body;
-    const existingUser = await User.findOne({ username: data.username });
+    const existingUser = await User.findOne({ email: data.email });
     if (existingUser) {
         res.send('User already exists');
     } else {
@@ -20,10 +20,10 @@ const signUp = async (req, res) => {
     }
 }
 
-//log in user
+// log in user
 const logIn = async (req, res) => {
     try {
-        const check = await User.findOne({ username: req.body.username });
+        const check = await User.findOne({ email: req.body.email });
         if (!check) {
             return res.status(404).json({ message: 'User not found' });
         }
