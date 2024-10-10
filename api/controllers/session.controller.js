@@ -1,22 +1,13 @@
 const Session = require('../models/session.model');
 
-// start a timer for session duration
-const startDuration = (req, res) => {
-    req.session.startTime = Date.now();
-    res.status(200).json({ message: 'Session timer started' });
-}
 
 // add a new session for a specific user
 const addSession = async (req, res) => {
     try {
         const userId = req.session.userId;
-        const { score, vr_minigame_name } = req.body;
+        const { score, vr_minigame_name, duration } = req.body;
 
-        // Calculate duration
-        const startTime = req.session.startTime;
-        const endTime = Date.now();
-        const duration = (endTime - startTime) / 1000; // Duration in seconds
-
+        
         const newSession = new Session({
             user_id: userId,
             score: score,
@@ -30,6 +21,7 @@ const addSession = async (req, res) => {
         res.status(500).json({ message: 'An error occurred', error: error.message });
     }
 }
+
 // get session data for a specific user
 const getSessionsByUserId = async (req, res) => {
     try {
@@ -41,9 +33,24 @@ const getSessionsByUserId = async (req, res) => {
         res.status(500).json({ message: 'An error occurred', error: error.message });
     }
 }
+const getSessionById = async (req, res) => {
+    try {
+        const userId = req.session.userId;
+        const { id } = req.params;
+
+        const session = await Session.findOne({ _id: id, user_id: userId });
+        if (!session) {
+            return res.status(404).json({ message: 'Session not found' });
+        }
+
+        res.status(200).json(session);
+    } catch (error) {
+        res.status(500).json({ message: 'An error occurred', error: error.message });
+    }
+}
 
 module.exports = {
-    startDuration,
     addSession,
-    getSessionsByUserId
+    getSessionsByUserId,
+    getSessionById
 }

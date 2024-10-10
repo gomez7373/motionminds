@@ -1,4 +1,5 @@
 const Todo = require('../models/todo.model');
+const { validationResult } = require('express-validator');
 
 // add a new todo item for a specific user
 const addTodoByUserId = async (req, res) => {
