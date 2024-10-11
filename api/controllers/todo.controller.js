@@ -31,6 +31,44 @@ const getTodosByUserId = async (req, res) => {
     }
 }
 
+const getTodosById = async (req, res) => {
+    try {
+        const userId = req.session.userId;
+        const { id } = req.params;
+
+        const todo = await Todo.findOne({ _id: id, user_id: userId });
+        if (!todo) {
+            return res.status(404).json({ message: 'Todo item not found' });
+        }
+
+        res.status(200).json(todo);
+    } catch (error) {
+        res.status(500).json({ message: 'An error occurred', error: error.message });
+    }
+}
+// get todo items for a specific user by current date
+const getTodosByCurrentDate = async (req, res) => {
+    try {
+        const userId = req.session.userId;
+
+        const startOfDay = new Date();
+        startOfDay.setHours(0, 0, 0, 0);
+
+        const endOfDay = new Date();
+        endOfDay.setHours(23, 59, 59, 999);
+
+        const todos = await Todo.find({
+            user_id: userId,
+            date_created: { $gte: startOfDay, $lte: endOfDay }
+        });
+
+        res.status(200).json(todos);
+    } catch (error) {
+        res.status(500).json({ message: 'An error occurred', error: error.message });
+    }
+}
+
+
 // update a specific todo item for a user
 const updateTodoById = async (req, res) => {
     try {
@@ -85,6 +123,8 @@ const addPredefinedTodos = async (req, res) => {
 module.exports = {
     addTodoByUserId,
     getTodosByUserId,
+    getTodosById,
+    getTodosByCurrentDate,
     updateTodoById,
     addPredefinedTodos
 }

@@ -1,5 +1,5 @@
 const express = require('express');
-const { addTodoByUserId, getTodosByUserId, updateTodoById, addPredefinedTodos } = require('../controllers/todo.controller');
+const { addTodoByUserId, getTodosByUserId, getTodosById, updateTodoById, addPredefinedTodos } = require('../controllers/todo.controller');
 const isAuthenticated = require('../middleware/auth.middleware');
 const { validateTodoEntry, validateTodoIdParam } = require('../validators/todo.validator');
 const {handleValidationErrors} = require('../middleware/validator.middleware.js');
@@ -10,6 +10,12 @@ router.post('/api/todo', isAuthenticated, validateTodoEntry, handleValidationErr
 
 // get todo items for a specific user
 router.get('/api/todo', isAuthenticated, getTodosByUserId);
+
+// get todo items for a specific user by current date
+router.get('/api/todo/user/today', isAuthenticated, getTodosByCurrentDate);
+
+// get a specific todo item for a user
+router.get('/api/todo/:id', isAuthenticated, validateTodoIdParam, getTodosById);
 
 // update a specific todo item for a user
 router.put('/api/todo/:id', isAuthenticated, validateTodoIdParam, validateTodoEntry, handleValidationErrors, updateTodoById);
