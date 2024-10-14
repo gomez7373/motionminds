@@ -37,7 +37,8 @@ app.use(session({
     secret: 'super+secret+key',
     resave: false,
     saveUninitialized: true,
-    store: MongoStore.create({ mongoUrl: 'mongodb+srv://7370:admin@cluster0.xqmsd.mongodb.net/motionminds?retryWrites=true&w=majority&appName=Cluster0' })
+    store: MongoStore.create({ mongoUrl: 'mongodb+srv://7370:admin@cluster0.xqmsd.mongodb.net/motionminds?retryWrites=true&w=majority&appName=Cluster0' }),
+    cookie: { maxAge: 180 * 60 * 1000 } // 3 hours
 }));
 
 // routes

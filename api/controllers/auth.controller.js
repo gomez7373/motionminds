@@ -43,30 +43,37 @@ const signUp = async (req, res) => {
 // log in user
 const logIn = async (req, res) => {
     try {
-        const check = await User.findOne({ email: req.body.email });
-        if (!check) {
-            return res.status(404).json({ message: 'User not found' });
+        const { email, password } = req.body;
+        const user = await User.findOne({ email });
+    
+        if (!user) {
+          return res.status(401).json({ message: 'Invalid email or password' });
         }
-        const isPasswordMatch = await bcrypt.compare(req.body.password, check.password);
-        if (isPasswordMatch) {
-            req.session.userId = check._id;
-            res.status(200).json({ message: 'Login successful', userId: check._id });
-        } else {
-            res.status(401).json({ message: 'Invalid credentials' });
+    
+        const isMatch = await bcrypt.compare(password, user.password);
+    
+        if (!isMatch) {
+          return res.status(401).json({ message: 'Invalid email or password' });
         }
-    } catch (error) {
+    
+        // Store user ID in session
+        req.session.userId = user._id;
+    
+        res.status(200).json({ message: 'Login successful', user: { first_name: user.first_name, email: user.email } });
+      } catch (error) {
         res.status(500).json({ message: 'An error occurred', error: error.message });
-    }
+      }
 }
 
 // log out user
 const logOut = (req, res) => {
     req.session.destroy((err) => {
         if (err) {
-            return res.send('Error logging out');
+          return res.status(500).json({ message: 'Logout failed' });
         }
-        res.redirect('/');
-    });
+        res.clearCookie('connect.sid'); // Clear the session cookie
+        return res.status(200).json({ message: 'Logged out successfully' });
+      });
 }
 
 module.exports = {

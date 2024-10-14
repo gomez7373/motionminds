@@ -4,8 +4,12 @@ const { validationResult } = require('express-validator');
 // add a new todo item for a specific user
 const addTodoByUserId = async (req, res) => {
     try {
-        const userId = req.session.userId;
+        const userId = req.session.userId; // Get user ID from session
         const { task_description } = req.body;
+
+        if (!userId) {
+            return res.status(401).json({ message: 'Unauthorized' });
+        }
 
         const newTodo = new Todo({
             user_id: userId,
@@ -18,7 +22,6 @@ const addTodoByUserId = async (req, res) => {
         res.status(500).json({ message: 'An error occurred', error: error.message });
     }
 }
-
 // get todo items for a specific user
 const getTodosByUserId = async (req, res) => {
     try {

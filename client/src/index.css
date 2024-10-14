@@ -167,6 +167,10 @@ select {
   margin-bottom: 15px;
   box-sizing: border-box;
 }
+/* input container */
+.input-container input {
+  color: #333;
+}
 
 /* Button Styling for Forms */
 .login-button, .signup-button {

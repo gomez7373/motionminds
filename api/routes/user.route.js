@@ -1,16 +1,17 @@
 const express = require('express');
-const { getUserById, updateUserById } = require('../controllers/user.controller');
+const { getUserById, getAllUsers, updateUserById } = require('../controllers/user.controller');
 const isAuthenticated = require('../middleware/auth.middleware');
 const { validateUserIdParam, validateUserUpdate } = require('../validators/user.validator');
-const {handleValidationErrors} = require('../middleware/validator.middleware.js');
+const { handleValidationErrors } = require('../middleware/validator.middleware.js');
 const router = express.Router();
 
-// user routes
+// Retrieve user data by ID
+router.get('/api/user', isAuthenticated, getUserById);
 
-// retrieve user data
-router.get('/api/user/:id', isAuthenticated, validateUserIdParam, handleValidationErrors, getUserById);
+// Retrieve all users
+router.get('/api/users', isAuthenticated, getAllUsers);
 
-// update user data
-router.put('/api/user/:id', isAuthenticated, validateUserIdParam, validateUserUpdate, handleValidationErrors, updateUserById);
+// Update user data
+router.put('/api/user/:id', isAuthenticated, validateUserIdParam, handleValidationErrors, updateUserById);
 
 module.exports = router;
