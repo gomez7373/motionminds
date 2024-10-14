@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const User = require('./models/user.model');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
+const cors = require('cors');
 // import middleware
 const isAuthenticated = require('./middleware/auth.middleware.js');
 // routes imports
@@ -14,6 +15,7 @@ const todoRoutes = require('./routes/todo.route.js');
 const sessionRoutes = require('./routes/session.route.js');
 const dailyRoutes = require('./routes/daily.route.js');
 const feedbackRoutes = require('./routes/feedback.route.js');
+const moodRoutes = require('./routes/mood.route.js');
 
 // app setup
 const app = express();
@@ -26,6 +28,7 @@ app.set('views', path.join(__dirname, 'views')); // Ensure views directory is se
 
 // middleware
 app.use(express.json());
+app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public'))); // Serve static files if needed
 
@@ -44,6 +47,7 @@ app.use(todoRoutes);
 app.use(sessionRoutes);
 app.use(dailyRoutes);
 app.use(feedbackRoutes);
+app.use(moodRoutes);
 
 // routes
 app.get('/', (req, res) => {
@@ -54,10 +58,7 @@ app.get('/', (req, res) => {
 
 });
 
-// protected route example
-app.get('/protected', isAuthenticated, (req, res) => {
-    res.send('This is a protected route');
-});
+
 
 const connect = mongoose.connect("mongodb+srv://7370:admin@cluster0.xqmsd.mongodb.net/motionminds?retryWrites=true&w=majority&appName=Cluster0");
 connect.then(() => {

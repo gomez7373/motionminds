@@ -1,5 +1,5 @@
 const express = require('express');
-const { addTodoByUserId, getTodosByUserId, getTodosById, updateTodoById, addPredefinedTodos } = require('../controllers/todo.controller');
+const { addTodoByUserId, getTodosByUserId, getTodosById, getTodosByCurrentDate, updateTodoById, addPredefinedTodos } = require('../controllers/todo.controller');
 const isAuthenticated = require('../middleware/auth.middleware');
 const { validateTodoEntry, validateTodoIdParam } = require('../validators/todo.validator');
 const {handleValidationErrors} = require('../middleware/validator.middleware.js');
