@@ -1,98 +1,82 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import Content from '../components/Content';
 
 function Checklist() {
   const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState('');
   const [message, setMessage] = useState('');
-  const [userId, setUserId] = useState(null);
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    verifyUser();
-    fetchTasks();
-  }, []);
-
-  const verifyUser = async () => {
-    try {
-      const response = await axios.get('http://localhost:3000/api/user', {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`
+    axios.get('http://localhost:3000/api/user', { 
+        withCredentials: true 
+    })
+    .then(res => {
+        console.log('Current user response:', res.data); // Log the response data
+        const { user } = res.data; // Extract user from response data
+        setUser(user);
+        return axios.get('http://localhost:3000/api/todo', { withCredentials: true });
+    })
+    .then(res => {
+        setTasks(res.data);
+        setLoading(false);
+    })
+    .catch(err => {
+        console.log(err);
+        if (err.response && err.response.status === 401) {
+            navigate('/login'); // Redirect to login if unauthorized
         }
-      });
-      setUserId(response.data.userId);
-    } catch (error) {
-      console.error('Error verifying user:', error);
-      setMessage('Failed to verify user');
-    }
-  };
-
-  const fetchTasks = async () => {
-    try {
-      const response = await axios.get('http://localhost:3000/api/todo/', {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`
-        }
-      });
-      setTasks(Array.isArray(response.data) ? response.data : []);
-    } catch (error) {
-      console.error('Error fetching tasks:', error);
-      setMessage('Failed to fetch tasks');
-    }
-  };
+    });
+}, [navigate]);
 
   const handleTaskChange = (taskId, isCompleted) => {
-    setTasks(tasks.map(task => task._id === taskId ? { ...task, is_completed: isCompleted } : task));
+    const updatedTasks = tasks.map(task =>
+      task._id === taskId ? { ...task, is_completed: isCompleted } : task
+    );
+    setTasks(updatedTasks);
+  };
+
+  const handleAddTask = async () => {
+    if (newTask.trim() === '') {
+      setMessage('Task description cannot be empty');
+      return;
+    }
+
+    try {
+      const response = await axios.post('http://localhost:3000/api/todo', { task_description: newTask }, { withCredentials: true });
+      setTasks([...tasks, response.data.todo]);
+      setNewTask('');
+      setMessage('Task added successfully');
+    } catch (error) {
+      console.error('Error adding task:', error);
+      setMessage('Failed to add task');
+    }
   };
 
   const handleSaveProgress = async () => {
     try {
-      await Promise.all(tasks.map(task => {
-        if (task && task._id) {
-          return axios.put(`http://localhost:3000/api/todo/${task._id}`, {
-            is_completed: task.is_completed
-          }, {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem('token')}`
-            }
-          });
-        }
-        return Promise.resolve(); // Skip undefined tasks or tasks without _id
-      }));
-      setMessage('Progress saved successfully!');
+      const updatePromises = tasks.map(task =>
+        axios.put(`http://localhost:3000/api/todo/${task._id}`, task, { withCredentials: true })
+      );
+      await Promise.all(updatePromises);
+      setMessage('Progress saved successfully');
     } catch (error) {
       console.error('Error saving progress:', error);
       setMessage('Failed to save progress');
     }
   };
 
-  const handleAddTask = async () => {
-    if (!newTask) {
-      setMessage('Please enter a task description');
-      return;
-    }
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
-    if (!userId) {
-      setMessage('User not authenticated');
-      return;
-    }
-
-    try {
-      const response = await axios.post('http://localhost:3000/api/todo', {
-        task_description: newTask
-      }, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`
-        }
-      });
-      setNewTask('');
-      setMessage('Task added successfully!');
-      fetchTasks(); // Fetch the updated list of tasks
-    } catch (error) {
-      console.error('Error adding task:', error);
-      setMessage('Failed to add task');
-    }
-  };
+  if (!user) {
+    return <div>Unauthorized. Please log in.</div>;
+  }
 
   return (
     <Content>
@@ -124,16 +108,7 @@ function Checklist() {
         <button onClick={handleSaveProgress}>Save Progress</button>
         {message && <p className="message">{message}</p>}
       </section>
-      <div id="taskDisplay">
-        <h1>Tasks</h1>
-        {Array.isArray(tasks) && tasks.map(task => (
-          task && (
-            <div key={task._id}>
-              {task.task_description || 'No description'}
-            </div>
-          )
-        ))}
-      </div>
+      
     </Content>
   );
 }
