@@ -5,6 +5,8 @@ const User = require('../models/user.model');
 const getUserById = async (req, res) => {
   try {
     const userId = req.session.userId; // Get user ID from session
+    const token = req.session.token; // Get token from session
+
     if (!userId) {
       return res.status(401).json({ message: 'Unauthorized' });
     }
@@ -14,7 +16,8 @@ const getUserById = async (req, res) => {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    res.status(200).json(user);
+    console.log('Current user response:', { token, user }); // Log the user data
+    res.status(200).json({ token, user }); // Include token in response
   } catch (error) {
     res.status(500).json({ message: 'An error occurred', error: error.message });
   }

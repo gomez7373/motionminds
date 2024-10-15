@@ -29,12 +29,15 @@ function Login() {
     setErrors({});
 
     try {
-      const response = await axios.post('http://localhost:3000/api/login', formData);
+      const response = await axios.post('http://localhost:3000/api/login', formData, { withCredentials: true });
       setMessage('Login successful');
       // Store login state in local storage
       localStorage.setItem('token', response.data.token);
+      console.log('Stored Token:', localStorage.getItem('token'));
+
       if (response.data.user && response.data.user.first_name) {
         localStorage.setItem('userFirstName', response.data.user.first_name); // Store user's first name
+        console.log('Current user response:', response.data.user); // Log the user data
         // Redirect to home route on successful login with state
         navigate('/', { state: { message: `Welcome, ${response.data.user.first_name}!` } });
       } else {

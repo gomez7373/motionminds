@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const User = require('../models/user.model');
 
 // sign up user
@@ -40,31 +41,35 @@ const signUp = async (req, res) => {
     }
 }
 
-// log in user
+// Log in user
 const logIn = async (req, res) => {
     try {
-        const { email, password } = req.body;
-        const user = await User.findOne({ email });
-    
-        if (!user) {
-          return res.status(401).json({ message: 'Invalid email or password' });
-        }
-    
-        const isMatch = await bcrypt.compare(password, user.password);
-    
-        if (!isMatch) {
-          return res.status(401).json({ message: 'Invalid email or password' });
-        }
-    
-        // Store user ID in session
-        req.session.userId = user._id;
-    
-        res.status(200).json({ message: 'Login successful', user: { first_name: user.first_name, email: user.email } });
-      } catch (error) {
-        res.status(500).json({ message: 'An error occurred', error: error.message });
+      const { email, password } = req.body;
+      const user = await User.findOne({ email });
+  
+      if (!user) {
+        return res.status(401).json({ message: 'Invalid email or password' });
       }
-}
-
+  
+      const isMatch = await bcrypt.compare(password, user.password);
+  
+      if (!isMatch) {
+        return res.status(401).json({ message: 'Invalid email or password' });
+      }
+  
+      // Generate JWT token
+      const token = jwt.sign({ userId: user._id }, 'your-secret-key', { expiresIn: '1h' });
+  
+      // Store user ID and token in session
+      req.session.userId = user._id;
+      req.session.token = token;
+  
+      res.status(200).json({ token, message: 'Login successful', user: { first_name: user.first_name, email: user.email } });
+    } catch (error) {
+      res.status(500).json({ message: 'An error occurred', error: error.message });
+    }
+  };
+  
 // log out user
 const logOut = (req, res) => {
     req.session.destroy((err) => {

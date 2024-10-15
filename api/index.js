@@ -22,23 +22,24 @@ const app = express();
 const port = 3000;
 
 
-// use ejs as view engine
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views')); // Ensure views directory is set
-
 // middleware
 app.use(express.json());
-app.use(cors());
-app.use(express.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, 'public'))); // Serve static files if needed
+app.use(cors({
+    origin: 'http://localhost:5173', // Adjust the origin as needed
+    credentials: true
+}));
 
 // session middleware
 app.use(session({
     secret: 'super+secret+key',
     resave: false,
     saveUninitialized: true,
-    store: MongoStore.create({ mongoUrl: 'mongodb+srv://7370:admin@cluster0.xqmsd.mongodb.net/motionminds?retryWrites=true&w=majority&appName=Cluster0' }),
-    cookie: { maxAge: 180 * 60 * 1000 } // 3 hours
+    store: MongoStore.create({ mongoUrl: "mongodb+srv://7370:admin@cluster0.xqmsd.mongodb.net/motionminds?retryWrites=true&w=majority&appName=Cluster0" }),
+    cookie: { 
+        maxAge: 180 * 60 * 1000,
+        httpOnly: true,           // Protect from XSS attacks
+        secure: false,            // Set to true if using HTTPS
+     } // 3 hours
 }));
 
 // routes
@@ -56,11 +57,7 @@ app.get('/', (req, res) => {
         return res.send('User already signed in');
     }
     res.send('Please sign in');
-
 });
-
-
-
 const connect = mongoose.connect("mongodb+srv://7370:admin@cluster0.xqmsd.mongodb.net/motionminds?retryWrites=true&w=majority&appName=Cluster0");
 connect.then(() => {
     console.log("Connected to database");

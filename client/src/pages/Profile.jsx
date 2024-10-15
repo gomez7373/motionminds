@@ -1,63 +1,55 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import Content from '../components/Content'; // Ensure the path is correct
 
 function Profile() {
-  const [user, setUser] = useState(null); // Store user data
-  const [loading, setLoading] = useState(true); // Track loading state
-  const [error, setError] = useState(''); // Store error message
+    const [user, setUser] = useState({});
+    const [loading, setLoading] = useState(true);
+    const navigate = useNavigate();
 
-  // Fetch user data when the component mounts
-  useEffect(() => {
-    fetchUserData();
-  }, []);
+    useEffect(() => {
+        axios.get('http://localhost:3000/api/user', { 
+            withCredentials: true 
+        })
+        .then(res => {
+            console.log('Current user response:', res.data); // Log the response data
+            const { user } = res.data; // Extract user from response data
+            setUser(user);
+            setLoading(false);
+        })
+        .catch(err => {
+            console.log(err);
+            if (err.response && err.response.status === 401) {
+                navigate('/login'); // Redirect to login if unauthorized
+            }
+        });
+    }, [navigate]);
 
-  // Function to fetch user data
-  const fetchUserData = async () => {
-    try {
-      const response = await fetch('http://localhost:3000/api/user', {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`
-        }
-      });
-      if (!response.ok) {
-        throw new Error('Failed to fetch user data');
-      }
-      const data = await response.json();
-      setUser(data); // Save user data to state
-    } catch (error) {
-      setError(error.message); // Save error message to state
-    } finally {
-      setLoading(false); // Stop loading
+    if (loading) {
+        return <div>Loading...</div>;
     }
-  };
 
-  return (
-    <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }}>
-      <h1>User Profile</h1>
-
-      {/* Display loading message */}
-      {loading && <p>Loading...</p>}
-
-      {/* Display error message if request fails */}
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-
-      {/* Display user data if available */}
-      {user && (
-        <div>
-          <p><strong>Username:</strong> {user.username}</p>
-          <p><strong>Email:</strong> {user.email}</p>
-          <p><strong>First Name:</strong> {user.first_name}</p>
-          <p><strong>Last Name:</strong> {user.last_name}</p>
-          <p><strong>Location:</strong> {user.location}</p>
-          <p><strong>Date of Birth:</strong> {user.date_of_birth}</p>
-          <p><strong>Gender:</strong> {user.gender}</p>
-          <p><strong>Phone:</strong> {user.phone}</p>
-          <p><strong>Profile Picture:</strong> <img src={user.profile_picture} alt="Profile" /></p>
-          <p><strong>Date Created:</strong> {new Date(user.date_created).toLocaleDateString()}</p>
-          <p><strong>Last Login:</strong> {new Date(user.last_login).toLocaleDateString()}</p>
-        </div>
-      )}
-    </div>
-  );
+    return (
+        <Content>
+            <header>
+                <h1>Profile</h1>
+            </header>
+            <div>
+                <p><strong>Username:</strong> {user.username}</p>
+                <p><strong>Email:</strong> {user.email}</p>
+                <p><strong>First Name:</strong> {user.first_name}</p>
+                <p><strong>Last Name:</strong> {user.last_name}</p>
+                <p><strong>Location:</strong> {user.location}</p>
+                <p><strong>Date of Birth:</strong> {new Date(user.date_of_birth).toLocaleDateString()}</p>
+                <p><strong>Gender:</strong> {user.gender}</p>
+                <p><strong>Phone:</strong> {user.phone}</p>
+                <p><strong>Profile Picture:</strong> <img src={user.profile_picture} alt="Profile" /></p>
+                <p><strong>Date Created:</strong> {new Date(user.date_created).toLocaleDateString()}</p>
+                <p><strong>Last Login:</strong> {new Date(user.last_login).toLocaleDateString()}</p>
+            </div>
+        </Content>
+    );
 }
 
 export default Profile;
