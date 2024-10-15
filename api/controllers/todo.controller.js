@@ -103,13 +103,7 @@ const addPredefinedTodos = async (req, res) => {
     try {
         const userId = req.session.userId;
 
-        const predefinedTodos = [
-            { task_description: 'Brush teeth' },
-            { task_description: 'Shower' },
-            { task_description: 'Fix bed' },
-            { task_description: 'Take meds' },
-            { task_description: 'Eat breakfast' }
-        ];
+        const predefinedTodos = [...req.body];
 
         const todos = predefinedTodos.map(todo => ({
             ...todo,
