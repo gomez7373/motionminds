@@ -1,8 +1,6 @@
 const express = require('express');
-const path = require('path');
-const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
-const User = require('./models/user.model');
+const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const cors = require('cors');
@@ -24,6 +22,7 @@ const port = 3000;
 
 // middleware
 app.use(express.json());
+app.use(cookieParser());
 app.use(cors({
     origin: 'http://localhost:5173', // Adjust the origin as needed
     credentials: true

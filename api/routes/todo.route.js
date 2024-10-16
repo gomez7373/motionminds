@@ -12,7 +12,7 @@ router.post('/api/todo', isAuthenticated, validateTodoEntry, handleValidationErr
 router.get('/api/todo', isAuthenticated, getTodosByUserId);
 
 // get todo items for a specific user by current date
-router.get('/api/todo/user/today', isAuthenticated, getTodosByCurrentDate);
+router.get('/api/todo/today', isAuthenticated, getTodosByCurrentDate);
 
 // get a specific todo item for a user
 router.get('/api/todo/:id', isAuthenticated, validateTodoIdParam, getTodosById);

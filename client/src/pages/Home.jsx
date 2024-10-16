@@ -13,7 +13,7 @@ function Home() {
       </header>
       {message && <p className="message">{message}</p>}
       {/* Other content of the home page */}
-      <LogoutButton />
+      
     </Content>
   );
 }

@@ -52,7 +52,7 @@ function Checklist() {
     .then(res => {
         const { user } = res.data; // Extract user from response data
         setUser(user);
-        return axios.get('http://localhost:3000/api/todo', { withCredentials: true });
+        return axios.get('http://localhost:3000/api/todo/today', { withCredentials: true });
     })
     .then(res => {
         setTasks(res.data);

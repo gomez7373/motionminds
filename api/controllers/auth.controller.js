@@ -58,7 +58,7 @@ const logIn = async (req, res) => {
       }
   
       // Generate JWT token
-      const token = jwt.sign({ userId: user._id }, 'your-secret-key', { expiresIn: '1h' });
+      const token = jwt.sign({ userId: user._id }, 'your-secret-key');
   
       // Store user ID and token in session
       req.session.userId = user._id;
@@ -77,6 +77,7 @@ const logOut = (req, res) => {
           return res.status(500).json({ message: 'Logout failed' });
         }
         res.clearCookie('connect.sid'); // Clear the session cookie
+        console.log('Logged out successfully');
         return res.status(200).json({ message: 'Logged out successfully' });
       });
 }
