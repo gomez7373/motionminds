@@ -12,7 +12,6 @@ const authRoutes = require('./routes/auth.route.js');
 const todoRoutes = require('./routes/todo.route.js');
 const sessionRoutes = require('./routes/session.route.js');
 const dailyRoutes = require('./routes/daily.route.js');
-const feedbackRoutes = require('./routes/feedback.route.js');
 const moodRoutes = require('./routes/mood.route.js');
 
 // app setup
@@ -47,7 +46,6 @@ app.use(userRoutes);
 app.use(todoRoutes);
 app.use(sessionRoutes);
 app.use(dailyRoutes);
-app.use(feedbackRoutes);
 app.use(moodRoutes);
 
 // routes

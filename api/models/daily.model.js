@@ -6,6 +6,16 @@ const dailySchema = new mongoose.Schema({
         ref: 'User',
         required: true
     },
+    todo_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Todo',
+        required: true
+    },
+    session_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Session',
+        required: true
+    },
     date: {
         type: Date,
         immutable: true,
@@ -13,9 +23,15 @@ const dailySchema = new mongoose.Schema({
     },
     tasks_completed: {
         type: Number,
-        required: true,
+        required: false,
+        default: 0
+    },
+    session_highscore: {
+        type: Number,
+        required: false,
         default: 0
     }
+
 });
 
 

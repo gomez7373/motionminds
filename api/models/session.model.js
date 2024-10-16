@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+//session schema
 const sessionSchema = new mongoose.Schema({
     user_id: {
         type: mongoose.Schema.Types.ObjectId,

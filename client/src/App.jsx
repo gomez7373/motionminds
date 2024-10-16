@@ -10,22 +10,27 @@ import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import Container from './components/Container';
 import Navbar from './components/Navbar';
+import Beach from './pages/Beach';
+import Forest from './pages/Forest';
+import Mountain from './pages/Mountain';
 
 function App() {
   return (
     <Container>
-      
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/updateprofile" element={<UpdateProfile />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/checklist" element={<Checklist />} />
-          <Route path="/moodtracker" element={<MoodTracker />} />
-          <Route path="/virtualspaces" element={<VirtualSpaces />} />
-        </Routes>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/updateprofile" element={<UpdateProfile />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/checklist" element={<Checklist />} />
+        <Route path="/moodtracker" element={<MoodTracker />} />
+        <Route path="/virtualspaces" element={<VirtualSpaces />} />
+        <Route path="/beach" element={<Beach />} />
+        <Route path="/forest" element={<Forest />} />
+        <Route path="/mountain" element={<Mountain />} />
+      </Routes>
     </Container>
   );
 }

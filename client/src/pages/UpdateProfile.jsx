@@ -15,7 +15,6 @@ function UpdateProfile() {
             withCredentials: true 
         })
         .then(res => {
-            console.log('Current user response:', res.data); // Log the response data
             const { user } = res.data; // Extract user from response data
             setUser(user);
             setFormData(user); // Initialize form data with user data

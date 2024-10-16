@@ -9,11 +9,11 @@ function Profile() {
     const navigate = useNavigate();
 
     useEffect(() => {
+        console.log('User:', user);
         axios.get('http://localhost:3000/api/user', { 
             withCredentials: true 
         })
         .then(res => {
-            console.log('Current user response:', res.data); // Log the response data
             const { user } = res.data; // Extract user from response data
             setUser(user);
             setLoading(false);
