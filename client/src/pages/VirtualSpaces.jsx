@@ -36,10 +36,6 @@ function VirtualSpaces() {
                 console.error('Error fetching sessions:', err);
                 if (err.response && err.response.status === 401) {
                     navigate('/login'); // Redirect if unauthorized
-                } else if (err.response && err.response.status === 404) {
-                    setMessage('No session found for today');
-                } else {
-                    setMessage('Failed to fetch sessions');
                 }
             });
     }, [navigate]);
@@ -60,7 +56,6 @@ function VirtualSpaces() {
                 <button className="space-option bg-gray-500 text-white px-4 py-2 rounded" onClick={() => navigateTo('/Mountain')}>Mountain</button>
             </div>
             {loading && <p>Loading...</p>}
-            {message && <p className="message">{message}</p>}
             <div className="session-data flex flex-col mx-auto max-w-4xl">
                 <h2 className="text-2xl text-center font-semibold mb-4">Today's sessions:</h2>
                 {sessions.length > 0 ? (

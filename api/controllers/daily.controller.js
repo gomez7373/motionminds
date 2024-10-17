@@ -48,42 +48,45 @@ const getDailyById = async (req, res) => {
 // get daily entries by date
 const getDailyByDate = async (req, res) => {
     try {
-        const userId = req.session.userId;
-        const { date } = req.params;
-
-        const dailyEntries = await Daily.find({ user_id: userId, date: new Date(date) });
-        if (dailyEntries.length === 0) {
-            return res.status(404).json({ message: 'No daily entries found for this date' });
+        const date = req.params.date;
+        const dailyEntry = await DailyEntry.find({ date });
+    
+        if (dailyEntry.length === 0) {
+          return res.status(404).json({ message: 'No daily entries found for this date' });
         }
-
-        res.status(200).json(dailyEntries);
-    } catch (error) {
-        res.status(500).json({ message: 'An error occurred', error: error.message });
-    }
+    
+        res.json(dailyEntry);
+      } catch (error) {
+        console.error('Error fetching daily entry:', error);
+        res.status(500).json({ message: 'Internal Server Error', error: error.message });
+      }
 };
 
 // get daily stats
+// get daily stats
+// get daily stats
 const getDailyStats = async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
     try {
         const userId = req.session.userId;
-        const { date } = req.body;
 
-        const startOfDay = new Date(date);
-        startOfDay.setHours(0, 0, 0, 0);
-        const endOfDay = new Date(date);
-        endOfDay.setHours(23, 59, 59, 999);
+        const today = new Date();
+        const startOfDay = new Date(today.setHours(0, 0, 0, 0));
+        const endOfDay = new Date(today.setHours(23, 59, 59, 999));
 
-        // Find all daily entries for the user within the specified date range
         const dailyEntries = await Daily.find({
             user_id: userId,
             date: { $gte: startOfDay, $lte: endOfDay }
         });
 
         if (dailyEntries.length === 0) {
-            return res.status(404).json({ message: 'No daily entries found for this date' });
+            return res.status(404).json({ message: 'No daily entries found for today' });
         }
 
-        // Count completed tasks
         let completedTasksCount = 0;
         for (const daily of dailyEntries) {
             for (const todoId of daily.todo_id) {
@@ -94,7 +97,6 @@ const getDailyStats = async (req, res) => {
             }
         }
 
-        // Sum of scores
         let totalScore = 0;
         for (const daily of dailyEntries) {
             for (const sessionId of daily.session_id) {
@@ -107,7 +109,9 @@ const getDailyStats = async (req, res) => {
 
         res.status(200).json({
             completedTasksCount,
-            totalScore
+            totalScore,
+            sessions: dailyEntries.flatMap(daily => daily.session_id),
+            todos: dailyEntries.flatMap(daily => daily.todo_id)
         });
     } catch (error) {
         res.status(500).json({ message: 'An error occurred', error: error.message });
@@ -117,47 +121,34 @@ const getDailyStats = async (req, res) => {
 // create a new daily entry
 const createDaily = async (req, res) => {
     try {
-        const userId = req.session.userId;
-        const { date, tasks_completed, sessions, todos } = req.body;
+        const { date, user_id, tasks_completed, sessions, todos } = req.body;
 
-        const sessionIds = [];
-        for (const session of sessions) {
-            const newSession = new Session({
-                user_id: userId,
-                date_played: session.date_played,
-                score: session.score,
-                vr_minigame_name: session.vr_minigame_name,
-                duration: session.duration
-            });
-            const savedSession = await newSession.save();
-            sessionIds.push(savedSession._id);
-        }
+        const newSessions = await Promise.all(sessions.map(async session => {
+            const newSession = new Session({ user_id, ...session });
+            return await newSession.save();
+        }));
 
-        const todoIds = [];
-        for (const todo of todos) {
-            const newTodo = new Todo({
-                user_id: userId,
-                task_description: todo.task_description,
-                is_completed: todo.is_completed
-            });
-            const savedTodo = await newTodo.save();
-            todoIds.push(savedTodo._id);
-        }
+        const newTodos = await Promise.all(todos.map(async todo => {
+            const newTodo = new Todo({ user_id, ...todo });
+            return await newTodo.save();
+        }));
 
-        const newDaily = new Daily({
-            user_id: userId,
-            date: date,
-            tasks_completed: tasks_completed,
-            session_id: sessionIds,
-            todo_id: todoIds
+        const dailyEntry = new Daily({
+            user_id,
+            date,
+            tasks_completed,
+            session_id: newSessions.map(s => s._id),
+            todo_id: newTodos.map(t => t._id),
         });
-        const savedDaily = await newDaily.save();
 
+        const savedDaily = await dailyEntry.save();
         res.status(201).json({ message: 'Daily entry created successfully', daily: savedDaily });
     } catch (error) {
+        console.error('Error in createDaily:', error.message);
         res.status(500).json({ message: 'An error occurred', error: error.message });
     }
 };
+
 
 // update a daily entry
 const updateDaily = async (req, res) => {

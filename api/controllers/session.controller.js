@@ -69,9 +69,10 @@ const getSession = async (req, res) => {
             date_played: { $gte: startOfDay, $lt: endOfDay }
         });
 
-        if (sessions.length === 0) {
-            return res.status(404).json({ message: 'No sessions found for today' });
+        if (!sessions.length) {
+            return res.status(200).json([]); // Return empty array instead of 404
         }
+        
 
         res.status(200).json(sessions);
     } catch (error) {
@@ -85,5 +86,5 @@ module.exports = {
     addSession,
     getSessionsByUserId,
     getSessionById,
-    getSession, // Export the new function
+    getSession
 };

@@ -27,4 +27,4 @@ router.put('/api/daily/:id', isAuthenticated, validateDailyEntry, handleValidati
 // delete a daily entry
 // router.delete('/api/daily/:id', isAuthenticated, deleteDaily);
 
-module.exports = router;
+module.exports = router; 

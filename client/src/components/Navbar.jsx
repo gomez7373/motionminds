@@ -40,6 +40,9 @@ function Navbar() {
                             <Link to="/virtualSpaces" className="nav-link">Virtual Spaces</Link>
                         </li>
                         <li>
+                            <Link to="/dailyprogress" className="nav-link">Daily Progress</Link>
+                        </li>
+                        <li>
                             <LogoutButton />
                         </li>
                     </>
