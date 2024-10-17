@@ -6,16 +6,16 @@ const dailySchema = new mongoose.Schema({
         ref: 'User',
         required: true
     },
-    todo_id: {
+    todo_id: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Todo',
         required: true
-    },
-    session_id: {
+    }],
+    session_id: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Session',
         required: true
-    },
+    }],
     date: {
         type: Date,
         immutable: true,
@@ -33,7 +33,5 @@ const dailySchema = new mongoose.Schema({
     }
 
 });
-
-
 
 module.exports = mongoose.model('Daily', dailySchema);

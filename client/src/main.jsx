@@ -9,10 +9,10 @@ import { AuthProvider } from './context/AuthContext'; // Adjust the path if nece
 const rootElement = document.getElementById('root');
 
 createRoot(rootElement).render(
-
+  <BrowserRouter>
     <AuthProvider> {/* Provide authentication context to the app */}
-      <BrowserRouter> {/* Enable routing throughout the app */}
-        <App />
-      </BrowserRouter>
+       {/* Enable routing throughout the app */}
+          <App />
     </AuthProvider>
+    </BrowserRouter>
 );
