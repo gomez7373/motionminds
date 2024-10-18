@@ -4,16 +4,14 @@ import { useNavigate } from 'react-router-dom';
 import Content from '../components/Content';
 
 function MoodTracker() {
-  const [selectedMood, setSelectedMood] = useState(
-    localStorage.getItem('selectedMood') || ''
-  ); // Retrieve the selected mood from localStorage initially
+  const [selectedMood, setSelectedMood] = useState('');
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
   const [currentDate, setCurrentDate] = useState('');
   const [user, setUser] = useState(null);
-  const [recordedMood, setRecordedMood] = useState(
-    localStorage.getItem('recordedMood') || ''
-  ); // Retrieve the recorded mood from localStorage
+  const [recordedMood, setRecordedMood] = useState('');
+  const [moodId, setMoodId] = useState(null);
+  const [dataFetched, setDataFetched] = useState(false); // Track if data has been fetched
   const navigate = useNavigate();
 
   // Fetch the user and recorded mood when the component mounts
@@ -36,16 +34,19 @@ function MoodTracker() {
       .then((res) => {
         const { mood } = res.data;
         if (mood) {
-          setRecordedMood(mood);
-          setSelectedMood(mood); // Sync selected mood with recorded mood
-          localStorage.setItem('recordedMood', mood); // Save to localStorage
+          setRecordedMood(mood.mood);
+          setSelectedMood(mood.mood); // Sync selected mood with recorded mood
+          setMoodId(mood._id); // Store the ID of the existing mood entry
+          localStorage.setItem('recordedMood', mood.mood); // Save to localStorage
         }
+        setDataFetched(true); // Set data fetched to true after getting response
       })
       .catch((err) => {
         console.error(err);
         if (err.response && err.response.status === 401) {
           navigate('/login'); // Redirect to login if unauthorized
         }
+        setDataFetched(true); // Set data fetched to true even if there's an error
       });
   }, [navigate]);
 
@@ -65,15 +66,31 @@ function MoodTracker() {
 
     setLoading(true);
     try {
-      const response = await axios.post(
-        'http://localhost:3000/api/mood',
-        {
-          user_id: user._id,
-          mood: mood,
-          date: new Date().toISOString(),
-        },
-        { withCredentials: true }
-      );
+      let response;
+      if (moodId) {
+        // Update the existing mood entry
+        response = await axios.put(
+          `http://localhost:3000/api/mood/${moodId}`,
+          {
+            user_id: user._id,
+            mood: mood,
+            date: new Date().toISOString(),
+          },
+          { withCredentials: true }
+        );
+      } else {
+        // Create a new mood entry
+        response = await axios.post(
+          'http://localhost:3000/api/mood',
+          {
+            user_id: user._id,
+            mood: mood,
+            date: new Date().toISOString(),
+          },
+          { withCredentials: true }
+        );
+        setMoodId(response.data._id); // Store the ID of the new mood entry
+      }
 
       setMessage('Mood recorded successfully');
       setRecordedMood(mood); // Update recorded mood
@@ -117,10 +134,10 @@ function MoodTracker() {
       </div>
       {loading && <p>Recording...</p>}
       {message && <p className="message">{message}</p>}
-      {selectedMood && (
+      {dataFetched && selectedMood && (
         <p className="selected-mood">Selected Mood: {selectedMood}</p>
       )}
-      {recordedMood && (
+      {dataFetched && recordedMood && (
         <p className="recorded-mood">Recorded Mood: {recordedMood}</p>
       )}
     </Content>

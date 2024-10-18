@@ -16,15 +16,23 @@ exports.createMood = async (req, res) => {
 };
 
 // Get all mood entries
+// Get all mood entries for the current date
 exports.getMoods = async (req, res) => {
     try {
-        const moods = await Mood.find();
+        // Get the current date and set the time to 00:00:00
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        // Query Mood for the current date
+        const moods = await Mood.find({
+            date: { $gte: today }
+        });
+
         res.status(200).json(moods);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 };
-
 // Get a single mood entry by ID
 exports.getMoodById = async (req, res) => {
     try {
@@ -41,17 +49,30 @@ exports.getMoodById = async (req, res) => {
 // Update a mood entry by ID
 exports.updateMood = async (req, res) => {
     try {
-        const mood = await Mood.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
-        if (!mood) {
-            return res.status(404).json({ message: 'Mood not found' });
+        const { user_id, mood } = req.body;
+
+        // Get the current date and set the time to 00:00:00
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        // Find and update the mood entry for the current date
+        const updatedMood = await Mood.findOneAndUpdate(
+            { user_id, date: { $gte: today } },
+            { mood },
+            { new: true, runValidators: true }
+        );
+
+        if (!updatedMood) {
+            return res.status(404).json({ message: 'Mood entry for today not found' });
         }
-        res.status(200).json(mood);
+
+        res.status(200).json(updatedMood);
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
 };
 
-// Delete a mood entry by ID
+// Delete a mood entry by ID 
 exports.deleteMood = async (req, res) => {
     try {
         const mood = await Mood.findByIdAndDelete(req.params.id);
