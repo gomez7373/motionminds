@@ -1,95 +1,120 @@
-// src/pages/DailyProgress.jsx
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import Content from '../components/Content'; // Ensure the path is correct
+import axios from 'axios';
 
 function DailyProgress() {
-    const [dailyData, setDailyData] = useState({});
-    const [loading, setLoading] = useState(true);
-    const [message, setMessage] = useState('');
-    const [selectedDate, setSelectedDate] = useState(new Date().toISOString().slice(0, 10));
-    const navigate = useNavigate();
+  const [user, setUser] = useState(null);
+  const [dailyProgress, setDailyProgress] = useState(null);
+  const [message, setMessage] = useState('');
+  const [currentDate, setCurrentDate] = useState(new Date().toISOString().split('T')[0]);
+  const navigate = useNavigate();
 
-    // Fetch daily progress data
-    useEffect(() => {
-        const fetchDailyData = async () => {
-            try {
-                const response = await axios.get(
-                    `http://localhost:3000/api/daily/${selectedDate}`, 
-                    { withCredentials: true }
-                );
+  useEffect(() => {
+    fetchUser();
+  }, []);
 
-                if (response.data.length > 0) {
-                    setDailyData(response.data[0]);
-                    setMessage('');
-                } else {
-                    setMessage('No daily entry found for the selected date.');
-                    setDailyData({});
-                }
-            } catch (error) {
-                console.error('Error fetching daily data:', error);
-                if (error.response?.status === 401) {
-                    navigate('/login'); // Redirect if unauthorized
-                } else {
-                    setMessage('Failed to fetch daily progress.');
-                }
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchDailyData();
-    }, [selectedDate, navigate]);
-
-    if (loading) {
-        return <div>Loading...</div>;
+  useEffect(() => {
+    if (user) {
+      fetchDailyProgress();
     }
+  }, [user, currentDate]);
 
-    return (
-        <Content>
-            <header>
-                <h1>Daily Progress</h1>
-                <input
-                    type="date"
-                    value={selectedDate}
-                    onChange={(e) => setSelectedDate(e.target.value)}
-                />
-                <button onClick={() => setLoading(true)}>Refresh</button>
-            </header>
+  const fetchUser = async () => {
+    try {
+      const userRes = await axios.get('http://localhost:3000/api/user', { withCredentials: true });
+      setUser(userRes.data.user);
+    } catch (error) {
+      console.error('Error fetching user:', error);
+      if (error.response?.status === 401) {
+        navigate('/login');
+      } else {
+        setMessage('Failed to fetch user.');
+      }
+    }
+  };
 
-            {message && <p className="message">{message}</p>}
+  const fetchDailyProgress = async () => {
+    try {
+      const dailyRes = await axios.get(
+        `http://localhost:3000/api/daily/${currentDate}?user_id=${user._id}`,
+        { withCredentials: true, validateStatus: (status) => status < 500 }
+      );
 
-            {Object.keys(dailyData).length > 0 && (
-                <div>
-                    <h2>Daily Entry for {new Date(dailyData.date).toLocaleDateString()}</h2>
-                    <p><strong>Tasks Completed:</strong> {dailyData.tasks_completed}</p>
-                    <p><strong>Total Score:</strong> {dailyData.total_score}</p>
+      if (dailyRes.status === 404) {
+        setMessage('No daily progress found. Consider creating one!');
+        setDailyProgress(null);
+      } else {
+        setDailyProgress(dailyRes.data);
+        setMessage('');
+      }
+    } catch (error) {
+      console.error('Error fetching daily progress:', error);
+      setMessage('Failed to fetch daily progress.');
+    }
+  };
 
-                    <h3>Sessions</h3>
-                    <ul>
-                        {dailyData.sessions.map(session => (
-                            <li key={session._id}>
-                                <strong>Minigame:</strong> {session.vr_minigame_name}, 
-                                <strong> Score:</strong> {session.score}, 
-                                <strong> Duration:</strong> {session.duration} seconds
-                            </li>
-                        ))}
-                    </ul>
+  const createDailyProgress = async () => {
+    try {
+      const todosRes = await axios.get('http://localhost:3000/api/todo/today', { withCredentials: true });
+      const sessionsRes = await axios.get('http://localhost:3000/api/session', { withCredentials: true });
 
-                    <h3>Todos</h3>
-                    <ul>
-                        {dailyData.todos.map(todo => (
-                            <li key={todo._id}>
-                                {todo.task_description} - 
-                                {todo.is_completed ? ' Completed' : ' Not Completed'}
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-            )}
-        </Content>
-    );
+      const todos = todosRes.data;
+      const sessions = sessionsRes.data;
+
+      // Check if there's data to create daily progress
+      if (todos.length === 0 && sessions.length === 0) {
+        setMessage('No Todos or Sessions found to create daily progress.');
+        return;
+      }
+
+      const newDaily = {
+        user_id: user._id,
+        date: currentDate,
+        tasks_completed: todos.filter(todo => todo.is_completed).length,
+        session_highscore: sessions.length > 0 ? Math.max(...sessions.map(session => session.score)) : 0,
+        todo_id: todos.map(todo => todo._id),
+        session_id: sessions.map(session => session._id),
+      };
+
+      await axios.post('http://localhost:3000/api/daily', newDaily, { withCredentials: true });
+
+      // Update daily progress
+      const updateRes = await axios.put(
+        'http://localhost:3000/api/daily/update',
+        { user_id: user._id, date: currentDate },
+        { withCredentials: true }
+      );
+
+      console.log(updateRes.data);
+      setDailyProgress(updateRes.data);
+      setMessage('Daily progress created and updated successfully!');
+    } catch (error) {
+      console.error('Error creating or updating daily progress:', error);
+      setMessage('Failed to create or update daily progress.');
+    }
+  };
+
+  return (
+    <div>
+      <h1>Daily Progress</h1>
+      <input
+        type="date"
+        value={currentDate}
+        onChange={(e) => setCurrentDate(e.target.value)}
+      />
+      <button onClick={createDailyProgress}>Create Daily Progress</button>
+      {message && <p>{message}</p>}
+
+      {dailyProgress ? (
+        <div>
+          <h2>Tasks Completed: {dailyProgress.tasks_completed}</h2>
+          <h2>Sessions Highscore: {dailyProgress.session_highscore}</h2>
+        </div>
+      ) : (
+        <p>No progress found for the selected date.</p>
+      )}
+    </div>
+  );
 }
 
 export default DailyProgress;

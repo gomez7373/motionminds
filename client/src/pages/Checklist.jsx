@@ -23,7 +23,7 @@ function Checklist() {
     { task_description: 'Take meds' },
     { task_description: 'Eat breakfast' }
   ];
-
+  
   const addPredefinedTodos = async () => {
     const existingTaskDescriptions = tasks.map(task => task.task_description);
     const newPredefinedTodos = predefinedTodos.filter(todo => !existingTaskDescriptions.includes(todo.task_description));
