@@ -42,33 +42,38 @@ const signUp = async (req, res) => {
 }
 
 // Log in user
+// Log in user
 const logIn = async (req, res) => {
-    try {
+  try {
       const { email, password } = req.body;
       const user = await User.findOne({ email });
-  
+
       if (!user) {
-        return res.status(401).json({ message: 'Invalid email or password' });
+          return res.status(401).json({ error: 'Email does not exist' });
       }
-  
+
       const isMatch = await bcrypt.compare(password, user.password);
-  
       if (!isMatch) {
-        return res.status(401).json({ message: 'Invalid email or password' });
+          return res.status(401).json({ error: 'Incorrect password' });
       }
-  
+
       // Generate JWT token
-      const token = jwt.sign({ userId: user._id }, 'your-secret-key');
-  
+      const token = jwt.sign({ userId: user._id }, 'super+secret+key', { expiresIn: '3h' });
+
       // Store user ID and token in session
       req.session.userId = user._id;
       req.session.token = token;
-  
-      res.status(200).json({ token, message: 'Login successful', user: { first_name: user.first_name, email: user.email } });
-    } catch (error) {
-      res.status(500).json({ message: 'An error occurred', error: error.message });
-    }
-  };
+
+      res.status(200).json({
+          token,
+          message: 'Login successful',
+          user: { first_name: user.first_name, email: user.email }
+      });
+  } catch (error) {
+      res.status(500).json({ error: 'An error occurred', details: error.message });
+  }
+};
+
   
 // log out user
 const logOut = (req, res) => {

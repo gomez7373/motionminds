@@ -28,12 +28,12 @@ function Login() {
         setLoading(true);
         setMessage('');
         setErrors({});
-
+    
         try {
             const response = await axios.post('http://localhost:3000/api/login', formData, { withCredentials: true });
             setMessage('Login successful');
             localStorage.setItem('token', response.data.token);
-
+    
             if (response.data.user && response.data.user.first_name) {
                 localStorage.setItem('userFirstName', response.data.user.first_name);
                 login(); // Update the authentication status in context
@@ -42,11 +42,21 @@ function Login() {
                 setMessage('Login successful, but user data is missing.');
             }
         } catch (error) {
-            // Handle errors as before
+            if (error.response) {
+                // Handle specific backend error responses
+                if (error.response.status === 401) {
+                    setMessage(error.response.data.error); // Display the backend error message
+                } else {
+                    setMessage('An unknown error occurred. Please try again.');
+                }
+            } else {
+                setMessage('Unable to connect to the server. Please try again later.');
+            }
         } finally {
             setLoading(false);
         }
     };
+    
 
     return (
         <Content>

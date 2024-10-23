@@ -149,7 +149,7 @@ const handleTaskChange = async (taskId, isCompleted) => {
   return (
     <Content>
       <header>
-        <h1>Today's Tasks</h1>
+        <h1>Checklist for selfcare</h1>
         <p>{currentDate}</p> {/* Display the current date */}
       </header>
       <section id="task-section">
