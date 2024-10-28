@@ -1,0 +1,116 @@
+/* Slider Container */
+.slider-container {
+  position: relative;
+  width: 100%;
+  max-width: 800px; /* Limit the maximum width */
+  margin: auto; /* Center the slider */
+  overflow: hidden; /* Hide overflow */
+  border-radius: 15px; /* Rounded corners */
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Subtle shadow */
+}
+
+/* Slide Container */
+.slide-container {
+  display: flex; /* Use flex to create a row of slides */
+  transition: transform 0.5s ease-in-out; /* Smooth transition */
+}
+
+/* Slide */
+.slide {
+  min-width: 100%; /* Each slide takes full width */
+  display: flex;
+  justify-content: center; /* Center slide content */
+  align-items: center; /* Center slide content vertically */
+}
+
+/* Slide Content Cards */
+.slide-content {
+  padding: 20px; /* Space around content */
+  width: 90%; /* Slightly smaller than the slide */
+  max-width: 600px; /* Limit the maximum width of cards */
+  text-align: center; /* Center text */
+}
+
+.card {
+  transition: transform 0.3s; /* Smooth scale effect */
+}
+
+.card:hover {
+  transform: scale(1.05); /* Scale effect on hover */
+}
+
+/* Navigation Buttons */
+.nav-button {
+  position: absolute;
+  top: 50%; /* Center vertically */
+  transform: translateY(-50%); /* Adjust for button height */
+  background-color: rgba(0, 123, 255, 0.8); /* Semi-transparent blue */
+  color: white; /* White text */
+  border: none; /* Remove border */
+  border-radius: 50%; /* Round button */
+  padding: 10px 15px; /* Padding for buttons */
+  cursor: pointer; /* Pointer cursor */
+  transition: background-color 0.3s; /* Transition for hover effect */
+}
+
+/* Left Navigation Button */
+.nav-button.left {
+  left: 10px; /* Position left */
+}
+
+/* Right Navigation Button */
+.nav-button.right {
+  right: 10px; /* Position right */
+}
+
+.nav-button:hover {
+  background-color: rgba(0, 123, 255, 1); /* Darker blue on hover */
+}
+
+/* Dot Pagination */
+.pagination {
+  display: flex; /* Arrange dots in a row */
+  justify-content: center; /* Center dots */
+  margin-top: 10px; /* Space above pagination */
+}
+
+.dot {
+  width: 10px; /* Dot size */
+  height: 10px; /* Dot size */
+  border-radius: 50%; /* Make dots circular */
+  background-color: #d1d5db; /* Light gray */
+  margin: 0 5px; /* Space between dots */
+  cursor: pointer; /* Pointer cursor */
+  transition: background-color 0.3s; /* Transition for hover effect */
+}
+
+.dot.active {
+  background-color: #007bff; /* Active dot color */
+}
+
+
+/* Text Styling */
+h2 {
+  font-size: 2em; /* Larger heading */
+  margin-bottom: 10px; /* Space below heading */
+  color: white; /* White color for headings */
+  font-weight: bold; /* Bold text */
+}
+
+h3 {
+  font-size: 1.5em; /* Slightly smaller subheading */
+  margin-bottom: 15px; /* Space below subheading */
+  color: rgba(255, 255, 255, 0.8); /* Slightly transparent white for subheadings */
+}
+
+ul {
+  list-style: none; /* Remove default list style */
+  padding: 0; /* Remove padding */
+  text-align: left; /* Align text to the left */
+}
+
+li {
+  margin: 8px 0; /* Space between list items */
+  font-size: 1.1em; /* Slightly larger list items */
+  color: rgba(255, 255, 255, 0.7); /* Slightly transparent white for list items */
+}

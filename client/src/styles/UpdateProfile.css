@@ -1,0 +1,65 @@
+.update-profile-container {
+    max-width: 600px; /* Limit width for better readability */
+    margin: auto; /* Center the container */
+    padding: 20px; /* Add padding */
+    background: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
+    border-radius: 15px; /* Rounded corners */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); /* Subtle shadow */
+}
+
+.update-profile-header {
+    text-align: center;
+    margin-bottom: 30px; /* Spacing below header */
+}
+
+.update-profile-form {
+    display: flex;
+    flex-direction: column; /* Stack form fields vertically */
+}
+
+.form-field {
+    margin-bottom: 20px; /* Space between fields */
+}
+
+label {
+    font-weight: bold; /* Bold labels */
+    margin-bottom: 5px; /* Space below label */
+    color: #ffffff; /* White text for contrast */
+}
+
+.input-field {
+    width: 100%; /* Full width inputs */
+    padding: 10px; /* Spacing inside inputs */
+    border-radius: 5px; /* Rounded corners */
+    border: 1px solid #ddd; /* Light gray border */
+    background: rgba(255, 255, 255, 0.3); /* Semi-transparent background */
+    color: #333; /* Dark gray text color */
+    transition: border-color 0.3s; /* Smooth transition */
+}
+
+.input-field:focus {
+    border-color: #007bff; /* Blue border on focus */
+    outline: none; /* Remove default outline */
+}
+
+.submit-button {
+    padding: 12px 20px; /* Padding for button */
+    background-color: #007bff; /* Primary button color */
+    color: #fff; /* White text */
+    border: none; /* No border */
+    border-radius: 25px; /* Rounded edges */
+    font-weight: bold; /* Bold text */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s, transform 0.2s; /* Smooth transitions */
+}
+
+.submit-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+.message {
+    color: #ff6b6b; /* Red color for error/success messages */
+    margin-top: 15px; /* Spacing above message */
+    text-align: center; /* Center the message */
+}

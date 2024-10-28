@@ -8,8 +8,8 @@ const router = express.Router();
 // Create a new mood entry
 router.post('/api/mood', isAuthenticated, validateMood, moodController.createMood);
 
-// Get all mood entries
-router.get('/api/mood', isAuthenticated, moodController.getMoods);
+// Get mood entries by user ID
+router.get('/api/mood', isAuthenticated, moodController.getMood);
 
 // Get a single mood entry by ID
 router.get('/api/mood/:id', isAuthenticated, moodController.getMoodById);

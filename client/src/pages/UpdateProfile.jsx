@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Content from '../components/Content'; // Ensure the path is correct
+import '../styles/UpdateProfile.css'; // Import the CSS file
 
 function UpdateProfile() {
     const [user, setUser] = useState({});
@@ -50,110 +51,116 @@ function UpdateProfile() {
     };
 
     if (loading) {
-        return <div>Loading...</div>;
+        return <div className="loading-message">Loading...</div>; // Updated loading message
     }
 
     return (
         <Content>
-            <header>
-                <h1>Profile</h1>
-            </header>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label>Username:</label>
-                    <input
-                        type="text"
-                        name="username"
-                        value={formData.username || ''}
-                        onChange={handleChange}
-                        className='text-gray-600'
-                    />
-                </div>
-                <div>
-                    <label>Email:</label>
-                    <input
-                        type="email"
-                        name="email"
-                        value={formData.email || ''}
-                        onChange={handleChange}
-                        className='text-gray-600'
-                    />
-                </div>
-                <div>
-                    <label>First Name:</label>
-                    <input
-                        type="text"
-                        name="first_name"
-                        value={formData.first_name || ''}
-                        onChange={handleChange}
-                        className='text-gray-600'
-                    />
-                </div>
-                <div>
-                    <label>Last Name:</label>
-                    <input
-                        type="text"
-                        name="last_name"
-                        value={formData.last_name || ''}
-                        onChange={handleChange}
-                        className='text-gray-600'
-                    />
-                </div>
-                <div>
-                    <label>Location:</label>
-                    <input
-                        type="text"
-                        name="location"
-                        value={formData.location || ''}
-                        onChange={handleChange}
-                        className='text-gray-600'
-                    />
-                </div>
-                <div>
-                    <label>Date of Birth:</label>
-                    <input
-                        type="date"
-                        name="date_of_birth"
-                        value={formData.date_of_birth || ''}
-                        onChange={handleChange}
-                        className='text-gray-600'
-                    />
-                </div>
-                <div>
-                    <label>Gender:</label>
-                    <input
-                        type="text"
-                        name="gender"
-                        value={formData.gender || ''}
-                        onChange={handleChange}
-                        className='text-gray-600'
-                    />
-                </div>
-                <div>
-                    <label>Phone:</label>
-                    <input
-                        type="text"
-                        name="phone"
-                        value={formData.phone || ''}
-                        onChange={handleChange}
-                        className='text-gray-600'
-                    />
-                </div>
-                <div>
-                    <label>Profile Picture URL:</label>
-                    <input
-                        type="text"
-                        name="profile_picture"
-                        value={formData.profile_picture || ''}
-                        onChange={handleChange}
-                        className='text-gray-600'
-                    />
-                </div>
-                <button type="submit" disabled={loading}>
-                    {loading ? 'Updating...' : 'Update Profile'}
-                </button>
-                {message && <p className="message">{message}</p>}
-            </form>
+            <div className="update-profile-container">
+                <header className="update-profile-header">
+                    <h1>Update Profile</h1>
+                </header>
+                <form onSubmit={handleSubmit} className="update-profile-form">
+                    <div className="form-field">
+                        <label>Username:</label>
+                        <input
+                            type="text"
+                            name="username"
+                            value={formData.username || ''}
+                            onChange={handleChange}
+                            className='input-field'
+                        />
+                    </div>
+                    <div className="form-field">
+                        <label>Email:</label>
+                        <input
+                            type="email"
+                            name="email"
+                            value={formData.email || ''}
+                            onChange={handleChange}
+                            className='input-field'
+                        />
+                    </div>
+                    <div className="form-field">
+                        <label>First Name:</label>
+                        <input
+                            type="text"
+                            name="first_name"
+                            value={formData.first_name || ''}
+                            onChange={handleChange}
+                            className='input-field'
+                        />
+                    </div>
+                    <div className="form-field">
+                        <label>Last Name:</label>
+                        <input
+                            type="text"
+                            name="last_name"
+                            value={formData.last_name || ''}
+                            onChange={handleChange}
+                            className='input-field'
+                        />
+                    </div>
+                    <div className="form-field">
+                        <label>Location:</label>
+                        <input
+                            type="text"
+                            name="location"
+                            value={formData.location || ''}
+                            onChange={handleChange}
+                            className='input-field'
+                        />
+                    </div>
+                    <div className="form-field">
+                        <label>Date of Birth:</label>
+                        <input
+                            type="date"
+                            name="date_of_birth"
+                            value={formData.date_of_birth || ''}
+                            onChange={handleChange}
+                            className='input-field'
+                        />
+                    </div>
+                    <div className="form-field">
+                        <label>Gender:</label>
+                        <select
+                            name="gender"
+                            value={formData.gender || ''}
+                            onChange={handleChange}
+                            className='input-field'
+                        >
+                            <option value="">Select Gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="prefer_not_to_specify">I prefer not to specify</option>
+                        </select>
+                    </div>
+                    <div className="form-field">
+                        <label>Phone:</label>
+                        <input
+                            type="text"
+                            name="phone"
+                            value={formData.phone || ''}
+                            onChange={handleChange}
+                            className='input-field'
+                        />
+                    </div>
+                    <div className="form-field">
+                        <label>Profile Picture URL:</label>
+                        <input
+                            type="text"
+                            name="profile_picture"
+                            value={formData.profile_picture || ''}
+                            onChange={handleChange}
+                            className='input-field'
+                        />
+                    </div>
+                    <button type="submit" className="submit-button" disabled={loading}>
+                        {loading ? 'Updating...' : 'Update Profile'}
+                    </button>
+                    {message && <p className="message">{message}</p>}
+                </form>
+            </div>
         </Content>
     );
 }

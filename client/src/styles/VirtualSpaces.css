@@ -1,0 +1,87 @@
+/* VirtualSpaces.css */
+.header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .title {
+    font-size: 2.5rem;
+    color: #ffffff; /* White text */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* Depth effect */
+  }
+  
+  .date {
+    font-size: 1.2rem;
+    color: #d1d5db; /* Light gray */
+  }
+  
+  .space-options {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+  }
+  
+  .space-option {
+    background-color: #007bff; /* Primary button color */
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 25px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    margin: 0 10px;
+    transition: background-color 0.3s, transform 0.2s;
+  }
+  
+  .space-option:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+    transform: scale(1.05); /* Slight scaling effect */
+  }
+  
+  .session-data {
+    margin-top: 30px;
+  }
+  
+  .session-title {
+    font-size: 2rem;
+    color: #ffffff; /* White text */
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .session-card {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 15px 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s;
+  }
+  
+  .session-card:hover {
+    transform: translateY(-5px); /* Lift effect on hover */
+  }
+  
+  .session-info {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .session-minigame,
+  .session-score,
+  .session-duration,
+  .session-date {
+    font-size: 1.1rem;
+    color: #ffffff; /* White text */
+  }
+  
+  .session-detail {
+    font-weight: bold;
+  }
+  
+  .no-sessions {
+    font-size: 1.5rem;
+    color: #ff6b6b; /* Error color */
+    text-align: center;
+  }
+  

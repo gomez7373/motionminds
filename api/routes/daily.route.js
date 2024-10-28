@@ -19,6 +19,6 @@ router.get('/api/daily/stats', isAuthenticated, getDailyStats);
 router.post('/api/daily', isAuthenticated, validateDailyEntry, handleValidationErrors, createDaily);
 
 // update daily progress
-router.put('/api/daily/update', isAuthenticated, updateDailyProgress);
+router.put('/api/daily/:id', isAuthenticated, updateDailyProgress);
 
 module.exports = router; 

@@ -1,0 +1,43 @@
+/* Profile.css */
+.profile-container {
+    max-width: 600px; /* Limit max width for better readability */
+    margin: 20px auto; /* Center the container */
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.1); /* Light translucent background */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+  }
+  
+  .profile-header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .profile-header h1 {
+    font-size: 2.5rem; /* Large title size */
+    color: #ffffff; /* White text */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Shadow for depth */
+  }
+  
+  .profile-picture {
+    width: 150px; /* Fixed size for profile picture */
+    height: 150px;
+    border-radius: 50%; /* Circular profile picture */
+    margin: 0 auto; /* Centered */
+    display: block; /* Ensures the image is centered */
+    border: 2px solid #007bff; /* Border color */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Shadow effect */
+  }
+  
+  .profile-detail {
+    font-size: 1.2rem; /* Detail text size */
+    color: #ffffff; /* White text */
+    margin: 10px 0; /* Space between details */
+  }
+  
+  .loading-message {
+    text-align: center;
+    font-size: 1.5rem;
+    color: #007bff; /* Loading message color */
+  }
+  

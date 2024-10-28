@@ -3,11 +3,15 @@ const Mood = require('../models/mood.model.js');
 // Create a new mood entry
 exports.createMood = async (req, res) => {
     try {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0); // Set to start of today
+        
         const mood = new Mood({
             user_id: req.body.user_id,
             mood: req.body.mood,
-            date: req.body.date
+            date: today  // Ensure today's date is used
         });
+        
         const savedMood = await mood.save();
         res.status(201).json(savedMood);
     } catch (error) {
@@ -15,24 +19,35 @@ exports.createMood = async (req, res) => {
     }
 };
 
-// Get all mood entries
-// Get all mood entries for the current date
-exports.getMoods = async (req, res) => {
+
+// Get the latest mood for the user
+// Get the latest mood for the user for today
+exports.getMood = async (req, res) => {
     try {
-        // Get the current date and set the time to 00:00:00
         const today = new Date();
         today.setHours(0, 0, 0, 0);
 
-        // Query Mood for the current date
-        const moods = await Mood.find({
-            date: { $gte: today }
-        });
+        const tomorrow = new Date(today);
+        tomorrow.setDate(today.getDate() + 1); // Set end of today
 
-        res.status(200).json(moods);
+        const mood = await Mood.findOne({
+            user_id: req.query.user_id,
+            date: { $gte: today, $lt: tomorrow } // Only today's date range
+        }).sort({ date: -1 }); // Get latest by date descending
+
+        if (!mood) {
+            return res.status(200).json({ mood: '', _id: null });
+        }
+
+        res.status(200).json(mood);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 };
+
+
+
+
 // Get a single mood entry by ID
 exports.getMoodById = async (req, res) => {
     try {
@@ -49,16 +64,12 @@ exports.getMoodById = async (req, res) => {
 // Update a mood entry by ID
 exports.updateMood = async (req, res) => {
     try {
-        const { user_id, mood } = req.body;
-
-        // Get the current date and set the time to 00:00:00
         const today = new Date();
         today.setHours(0, 0, 0, 0);
 
-        // Find and update the mood entry for the current date
         const updatedMood = await Mood.findOneAndUpdate(
-            { user_id, date: { $gte: today } },
-            { mood },
+            { user_id: req.body.user_id, date: { $gte: today, $lt: new Date(today.getTime() + 24 * 60 * 60 * 1000) } },
+            { mood: req.body.mood },
             { new: true, runValidators: true }
         );
 
@@ -71,6 +82,7 @@ exports.updateMood = async (req, res) => {
         res.status(400).json({ message: error.message });
     }
 };
+
 
 // Delete a mood entry by ID 
 exports.deleteMood = async (req, res) => {

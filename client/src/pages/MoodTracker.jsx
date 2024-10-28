@@ -11,23 +11,22 @@ function MoodTracker() {
   const [user, setUser] = useState(null);
   const [recordedMood, setRecordedMood] = useState('');
   const [moodId, setMoodId] = useState(null);
-  const [dataFetched, setDataFetched] = useState(false); // Track if data has been fetched
+  const [dataFetched, setDataFetched] = useState(false);
   const navigate = useNavigate();
 
-  // Fetch the user and recorded mood when the component mounts
   useEffect(() => {
-    const today = new Date().toLocaleDateString();
-    setCurrentDate(today);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);  // Set to midnight
+    const formattedDate = today.toISOString();  // Use ISO string for consistency
+    setCurrentDate(formatDate(today)); // Set formatted date
 
-    // Retrieve user and mood information from API
     axios
       .get('http://localhost:3000/api/user', { withCredentials: true })
       .then((res) => {
         const { user } = res.data;
         setUser(user);
-
         return axios.get('http://localhost:3000/api/mood', {
-          params: { user_id: user._id, date: today }, // Ensure we query today's mood
+          params: { user_id: user._id, date: formattedDate },
           withCredentials: true,
         });
       })
@@ -35,69 +34,78 @@ function MoodTracker() {
         const { mood } = res.data;
         if (mood) {
           setRecordedMood(mood.mood);
-          setSelectedMood(mood.mood); // Sync selected mood with recorded mood
-          setMoodId(mood._id); // Store the ID of the existing mood entry
-          localStorage.setItem('recordedMood', mood.mood); // Save to localStorage
+          setSelectedMood(mood.mood);
+          setMoodId(mood._id);
+          localStorage.setItem('recordedMood', mood.mood);
         }
-        setDataFetched(true); // Set data fetched to true after getting response
+        setDataFetched(true);
       })
       .catch((err) => {
         console.error(err);
         if (err.response && err.response.status === 401) {
-          navigate('/login'); // Redirect to login if unauthorized
+          navigate('/login');
         }
-        setDataFetched(true); // Set data fetched to true even if there's an error
+        setDataFetched(true);
       });
   }, [navigate]);
 
-  // Handle mood selection and update the local state
-  const handleMoodSelect = (mood) => {
-    setSelectedMood(mood);
-    localStorage.setItem('selectedMood', mood); // Save selected mood to localStorage
-    handleSubmit(mood); // Submit the mood immediately upon selection
+  // Function to format the date to MM/DD/YYYY
+  const formatDate = (date) => {
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-based
+    const day = String(date.getDate()).padStart(2, '0');
+    const year = date.getFullYear();
+    return `${month}/${day}/${year}`;
   };
 
-  // Handle mood submission to the API
+  const handleMoodSelect = (mood) => {
+    setSelectedMood(mood);
+    setMessage(`Mood selected: ${mood}`);
+    localStorage.setItem('selectedMood', mood);
+    handleSubmit(mood);
+  };
+
   const handleSubmit = async (mood) => {
     if (!user) {
       setMessage('User not found');
       return;
     }
-
+  
     setLoading(true);
     try {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);  // Set date to midnight
+      const formattedDate = today.toISOString();
+  
       let response;
       if (moodId) {
-        // Update the existing mood entry
         response = await axios.put(
           `http://localhost:3000/api/mood/${moodId}`,
           {
             user_id: user._id,
             mood: mood,
-            date: new Date().toISOString(),
+            date: formattedDate,
           },
           { withCredentials: true }
         );
       } else {
-        // Create a new mood entry
         response = await axios.post(
           'http://localhost:3000/api/mood',
           {
             user_id: user._id,
             mood: mood,
-            date: new Date().toISOString(),
+            date: formattedDate,
           },
           { withCredentials: true }
         );
-        setMoodId(response.data._id); // Store the ID of the new mood entry
+        setMoodId(response.data._id);
       }
-
-      setMessage('Mood recorded successfully');
-      setRecordedMood(mood); // Update recorded mood
-      localStorage.setItem('recordedMood', mood); // Save to localStorage
+  
+      setMessage(`Mood recorded successfully: ${mood}`);
+      setRecordedMood(mood);
+      localStorage.setItem('recordedMood', mood);
     } catch (error) {
       if (error.response && error.response.status === 401) {
-        navigate('/login'); // Redirect to login if unauthorized
+        navigate('/login');
       } else {
         setMessage('Failed to record mood');
       }
@@ -110,36 +118,30 @@ function MoodTracker() {
     <Content>
       <header>
         <h1>Select Your Mood Today</h1>
-        <p>{currentDate}</p> {/* Display current date */}
+        <p>{currentDate}</p> {/* Display formatted date */}
       </header>
       <div className="mood-options">
         <div
           className={`mood-icon ${selectedMood === 'happy' ? 'selected' : ''}`}
           onClick={() => handleMoodSelect('happy')}
         >
-          <img src="assets/happy.png" alt="happy" />
+          <img src="https://img.icons8.com/emoji/48/000000/smiling-face-with-heart-eyes.png" alt="happy" />
         </div>
         <div
           className={`mood-icon ${selectedMood === 'numb' ? 'selected' : ''}`}
           onClick={() => handleMoodSelect('numb')}
         >
-          <img src="assets/numb.png" alt="numb" />
+          <img src="https://img.icons8.com/emoji/48/000000/expressionless-face.png" alt="numb" />
         </div>
         <div
           className={`mood-icon ${selectedMood === 'sad' ? 'selected' : ''}`}
           onClick={() => handleMoodSelect('sad')}
         >
-          <img src="assets/sad.png" alt="sad" />
+          <img src="https://img.icons8.com/?size=48&id=63238&format=png&color=000000" alt="sad" />
         </div>
       </div>
       {loading && <p>Recording...</p>}
       {message && <p className="message">{message}</p>}
-      {dataFetched && selectedMood && (
-        <p className="selected-mood">Selected Mood: {selectedMood}</p>
-      )}
-      {dataFetched && recordedMood && (
-        <p className="recorded-mood">Recorded Mood: {recordedMood}</p>
-      )}
     </Content>
   );
 }

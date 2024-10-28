@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Content from '../components/Content';
+import '../styles/VirtualSpaces.css'; // Import the CSS file
 
 function VirtualSpaces() {
     const [user, setUser] = useState(null);
@@ -9,11 +10,12 @@ function VirtualSpaces() {
     const [sessions, setSessions] = useState([]);
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState('');
-    const navigate = useNavigate(); // Initialize navigate
+    const navigate = useNavigate();
 
     useEffect(() => {
-        const today = new Date().toISOString().split('T')[0]; // Format: YYYY-MM-DD
-        setCurrentDate(today);
+        const today = new Date();
+        const formattedDate = `${today.getMonth() + 1}/${today.getDate()}/${today.getFullYear()}`;
+        setCurrentDate(formattedDate);
 
         // Fetch user data
         axios
@@ -24,18 +26,18 @@ function VirtualSpaces() {
 
                 // Fetch session data for today
                 return axios.get('http://localhost:3000/api/session', {
-                    params: { user_id: user._id, date: today },
+                    params: { user_id: user._id, date: today.toISOString().split('T')[0] },
                     withCredentials: true,
                 });
             })
             .then((res) => {
-                console.log('Received sessions:', res.data); // Debugging response
+                console.log('Received sessions:', res.data);
                 setSessions(res.data);
             })
             .catch((err) => {
                 console.error('Error fetching sessions:', err);
                 if (err.response && err.response.status === 401) {
-                    navigate('/login'); // Redirect if unauthorized
+                    navigate('/login');
                 }
             });
     }, [navigate]);
@@ -46,29 +48,51 @@ function VirtualSpaces() {
 
     return (
         <Content>
-            <header className="text-center my-8">
-                <h1 className="text-4xl font-bold">Virtual Spaces</h1>
-                <p>{currentDate}</p> {/* Display current date */}
+            <header className="header">
+                <h1 className="title">Explore Virtual Spaces</h1>
+                <p className="date">{currentDate}</p>
             </header>
-            <div className="space-options flex justify-center space-x-4 my-4">
-                <button className="space-option bg-blue-500 text-white px-4 py-2 rounded" onClick={() => navigateTo('/Beach')}>Beach</button>
-                <button className="space-option bg-green-500 text-white px-4 py-2 rounded" onClick={() => navigateTo('/Forest')}>Forest</button>
-                <button className="space-option bg-gray-500 text-white px-4 py-2 rounded" onClick={() => navigateTo('/Mountain')}>Mountain</button>
+
+            <div className="space-options">
+                <button className="space-option" onClick={() => navigateTo('/Beach')}>
+                    Beach
+                </button>
+                <button className="space-option" onClick={() => navigateTo('/Forest')}>
+                    Forest
+                </button>
+                <button className="space-option" onClick={() => navigateTo('/Mountain')}>
+                    Mountain
+                </button>
             </div>
-            {loading && <p>Loading...</p>}
-            <div className="session-data flex flex-col mx-auto max-w-4xl">
-                <h2 className="text-2xl text-center font-semibold mb-4">Today's sessions:</h2>
+
+            {loading && <p className="loading">Loading...</p>}
+
+            <div className="session-data">
+                <h2 className="session-title">Today's Sessions</h2>
+
                 {sessions.length > 0 ? (
                     sessions.map((session) => (
-                        <div className="session-scores flex shadow-md rounded-lg p-4 mb-4" key={session._id}>
-                            <p className="text-lg font-medium mr-4">Minigame: {session.vr_minigame_name}</p>
-                            <p className="text-lg mr-4">Score: {session.score}</p>
-                            <p className="text-lg mr-4">Duration: {session.duration} seconds</p>
-                            <p className="text-lg">Date: {new Date(session.date_played).toLocaleDateString()}</p>
+                        <div key={session._id} className="session-card">
+                            <div className="session-info">
+                                <p className="session-minigame">
+                                    Minigame: <span className="session-detail">{session.vr_minigame_name}</span>
+                                </p>
+                                <p className="session-score">
+                                    Score: <span className="session-detail">{session.score}</span>
+                                </p>
+                                <p className="session-duration">
+                                    Duration: <span className="session-detail">{session.duration} seconds</span>
+                                </p>
+                            </div>
+                            <div className="date-container">
+                                <p className="session-date">
+                                    Date: <span className="session-detail">{new Date(session.date_played).toLocaleDateString()}</span>
+                                </p>
+                            </div>
                         </div>
                     ))
                 ) : (
-                    <p className="text-lg">No sessions found for today.</p>
+                    <p className="no-sessions">No sessions found for today.</p>
                 )}
             </div>
         </Content>

@@ -16,6 +16,11 @@ const dailySchema = new mongoose.Schema({
         ref: 'Session',
         required: true
     }],
+    mood_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Mood',
+        required: true
+    },
     date: {
         type: Date,
         immutable: true,
@@ -30,6 +35,11 @@ const dailySchema = new mongoose.Schema({
         type: Number,
         required: false,
         default: 0
+    },
+    mood:{
+        type: String,
+        required: false,
+        default: ''
     }
 
 });

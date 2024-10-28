@@ -147,42 +147,45 @@ const handleTaskChange = async (taskId, isCompleted) => {
   }
 
   return (
-    <Content>
-      <header>
-        <h1>Checklist for selfcare</h1>
-        <p>{currentDate}</p> {/* Display the current date */}
-      </header>
-      <section id="task-section">
-        <ul id="taskList">
-  {Array.isArray(tasks) && tasks.map(task => (
-    task && (
-      <li key={task._id || task.task_description}>
-        <input
-          type="checkbox"
-          checked={task.is_completed === true}
-          onChange={(e) => handleTaskChange(task._id, e.target.checked)}
-        /> {task.task_description || 'No description'}
-      </li>
-    )
-  ))}
-</ul>
-        {predefinedTasksAdded && (
-          <>
+    // Inside the Checklist component's return statement
+
+<Content>
+  <header className="header">
+    <h1>Checklist for selfcare</h1>
+    <p>{currentDate}</p>
+  </header>
+  <section className="task-section">
+    <ul className="task-list">
+      {Array.isArray(tasks) && tasks.map(task => (
+        task && (
+          <li key={task._id || task.task_description}>
             <input
-              type="text"
-              value={newTask}
-              onChange={(e) => setNewTask(e.target.value)}
-              onKeyPress={handleKeyPress}
-              placeholder="New task description"
-              className='text-gray-600'
+              type="checkbox"
+              checked={task.is_completed === true}
+              onChange={(e) => handleTaskChange(task._id, e.target.checked)}
             />
-            <button className="mr-10" onClick={handleAddTask}>Add Task</button>
-          </>
-        )}
-        {message && <p className="message">{message}</p>}
-      </section>
-      
-    </Content>
+            {task.task_description || 'No description'}
+          </li>
+        )
+      ))}
+    </ul>
+    {predefinedTasksAdded && (
+      <div className="input-container">
+        <input
+          type="text"
+          value={newTask}
+          onChange={(e) => setNewTask(e.target.value)}
+          onKeyPress={handleKeyPress}
+          placeholder="New task description"
+          className='text-gray-600'
+        />
+        <button onClick={handleAddTask}>Add Task</button>
+      </div>
+    )}
+    {message && <p className="message">{message}</p>}
+  </section>
+</Content>
+
   );
 }
 
