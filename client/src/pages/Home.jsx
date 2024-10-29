@@ -8,7 +8,7 @@ function Home() {
   return (
     <Content>
       <header className='header'>
-        <h1>Welcome to MotionMinds</h1>
+        <h1>Management of Emotions</h1>
       </header>
       
       <Slider/>

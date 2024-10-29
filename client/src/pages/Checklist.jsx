@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Content from '../components/Content';
+import '../styles/Checklist.css'; // Import the CSS file
 
 function Checklist() {
   const [tasks, setTasks] = useState([]);
@@ -112,26 +113,7 @@ const handleTaskChange = async (taskId, isCompleted) => {
       setMessage('Failed to add task');
     }
   };
-/*
-  const handleSaveProgress = async () => {
-    try {
-      const updatePromises = tasks.map(task =>
-        axios.put(`http://localhost:3000/api/todo/${task._id}`, task, { withCredentials: true })
-      );
-      const results = await Promise.allSettled(updatePromises);
-      const failedUpdates = results.filter(result => result.status === 'rejected');
-      if (failedUpdates.length > 0) {
-        console.error('Some tasks failed to update:', failedUpdates);
-        setMessage('Failed to save progress for some tasks');
-      } else {
-        setMessage('Progress saved successfully');
-      }
-    } catch (error) {
-      console.error('Error saving progress:', error);
-      setMessage('Failed to save progress');
-    }
-  };
-*/
+
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
       handleAddTask();
@@ -147,45 +129,42 @@ const handleTaskChange = async (taskId, isCompleted) => {
   }
 
   return (
-    // Inside the Checklist component's return statement
-
-<Content>
-  <header className="header">
-    <h1>Checklist for selfcare</h1>
-    <p>{currentDate}</p>
-  </header>
-  <section className="task-section">
-    <ul className="task-list">
-      {Array.isArray(tasks) && tasks.map(task => (
-        task && (
-          <li key={task._id || task.task_description}>
+    <Content>
+      <header className="header">
+        <h1>Checklist for selfcare</h1>
+        <p>{currentDate}</p>
+      </header>
+      <section className="task-section">
+        <ul className="task-list">
+          {Array.isArray(tasks) && tasks.map(task => (
+            task && (
+              <li key={task._id || task.task_description}>
+                <input
+                  type="checkbox"
+                  checked={task.is_completed === true}
+                  onChange={(e) => handleTaskChange(task._id, e.target.checked)}
+                />
+                {task.task_description || 'No description'}
+              </li>
+            )
+          ))}
+        </ul>
+        {predefinedTasksAdded && (
+          <div className="input-container">
             <input
-              type="checkbox"
-              checked={task.is_completed === true}
-              onChange={(e) => handleTaskChange(task._id, e.target.checked)}
+              type="text"
+              value={newTask}
+              onChange={(e) => setNewTask(e.target.value)}
+              onKeyPress={handleKeyPress}
+              placeholder="New task description"
+              className='text-gray-600'
             />
-            {task.task_description || 'No description'}
-          </li>
-        )
-      ))}
-    </ul>
-    {predefinedTasksAdded && (
-      <div className="input-container">
-        <input
-          type="text"
-          value={newTask}
-          onChange={(e) => setNewTask(e.target.value)}
-          onKeyPress={handleKeyPress}
-          placeholder="New task description"
-          className='text-gray-600'
-        />
-        <button onClick={handleAddTask}>Add Task</button>
-      </div>
-    )}
-    {message && <p className="message">{message}</p>}
-  </section>
-</Content>
-
+            <button onClick={handleAddTask}>Add Task</button>
+          </div>
+        )}
+        {message && <p className="message">{message}</p>}
+      </section>
+    </Content>
   );
 }
 

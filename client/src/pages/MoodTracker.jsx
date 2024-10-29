@@ -116,7 +116,7 @@ function MoodTracker() {
 
   return (
     <Content>
-      <header>
+      <header className="header">
         <h1>Select Your Mood Today</h1>
         <p>{currentDate}</p> {/* Display formatted date */}
       </header>
