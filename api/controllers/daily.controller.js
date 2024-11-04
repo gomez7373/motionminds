@@ -6,11 +6,10 @@ const Mood = require('../models/mood.model');
 // Create a new daily entry for a specific user
 const createDaily = async (req, res) => {
     try {
-        const { user_id } = req.body;
+        const { user_id, date } = req.body;
 
-        // Get the current date and set the time to 00:00:00
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
+        // Ensure date is in ISO format
+        const today = new Date(date).toISOString();
 
         // Query Todos for the current date
         const todos = await Todo.find({

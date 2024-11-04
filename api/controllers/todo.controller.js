@@ -13,7 +13,8 @@ const addTodoByUserId = async (req, res) => {
 
         const newTodo = new Todo({
             user_id: userId,
-            task_description: task_description
+            task_description: task_description,
+            date_created: new Date().toISOString() // Ensure date is in ISO format
         });
 
         const savedTodo = await newTodo.save();
@@ -22,6 +23,7 @@ const addTodoByUserId = async (req, res) => {
         res.status(500).json({ message: 'An error occurred', error: error.message });
     }
 }
+
 // get todo items for a specific user
 const getTodosByUserId = async (req, res) => {
     try {
@@ -49,6 +51,7 @@ const getTodosById = async (req, res) => {
         res.status(500).json({ message: 'An error occurred', error: error.message });
     }
 }
+
 // get todo items for a specific user by current date
 const getTodosByCurrentDate = async (req, res) => {
     try {
@@ -62,7 +65,7 @@ const getTodosByCurrentDate = async (req, res) => {
 
         const todos = await Todo.find({
             user_id: userId,
-            date_created: { $gte: startOfDay, $lte: endOfDay }
+            date_created: { $gte: startOfDay, $lte: endOfDay } // Ensure date is in ISO format
         });
 
         res.status(200).json(todos);
@@ -70,7 +73,6 @@ const getTodosByCurrentDate = async (req, res) => {
         res.status(500).json({ message: 'An error occurred', error: error.message });
     }
 }
-
 
 // update a specific todo item for a user
 const updateTodoById = async (req, res) => {
@@ -107,7 +109,8 @@ const addPredefinedTodos = async (req, res) => {
 
         const todos = predefinedTodos.map(todo => ({
             ...todo,
-            user_id: userId
+            user_id: userId,
+            date_created: new Date().toISOString() // Ensure date is in ISO format
         }));
 
         const savedTodos = await Todo.insertMany(todos);

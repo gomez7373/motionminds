@@ -24,7 +24,7 @@ function Checklist() {
     { task_description: 'Take meds' },
     { task_description: 'Eat breakfast' }
   ];
-  
+
   const addPredefinedTodos = async () => {
     const existingTaskDescriptions = tasks.map(task => task.task_description);
     const newPredefinedTodos = predefinedTodos.filter(todo => !existingTaskDescriptions.includes(todo.task_description));
@@ -44,8 +44,8 @@ function Checklist() {
   };
 
   useEffect(() => {
-    const today = new Date().toLocaleDateString();
-    setCurrentDate(today);
+    const today = new Date();
+    setCurrentDate(formatDate(today));
 
     axios.get('http://localhost:3000/api/user', { 
         withCredentials: true 
@@ -72,6 +72,13 @@ function Checklist() {
     });
 }, [navigate]);
 
+const formatDate = (date) => {
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  const year = date.getFullYear();
+  return `${month}/${day}/${year}`;
+};
+
 const handleTaskChange = async (taskId, isCompleted) => {
   try {
     // Find the task to update
@@ -97,75 +104,75 @@ const handleTaskChange = async (taskId, isCompleted) => {
   }
 };
 
-  const handleAddTask = async () => {
-    if (newTask.trim() === '') {
-      setMessage('Task description cannot be empty');
-      return;
-    }
-
-    try {
-      const response = await axios.post('http://localhost:3000/api/todo', { task_description: newTask }, { withCredentials: true });
-      setTasks([...tasks, response.data.todo]);
-      setNewTask('');
-      setMessage('Task added successfully');
-    } catch (error) {
-      console.error('Error adding task:', error);
-      setMessage('Failed to add task');
-    }
-  };
-
-  const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
-      handleAddTask();
-    }
-  };
-
-  if (loading) {
-    return <div>Loading...</div>;
+const handleAddTask = async () => {
+  if (newTask.trim() === '') {
+    setMessage('Task description cannot be empty');
+    return;
   }
 
-  if (!user) {
-    return <div>Unauthorized. Please log in.</div>;
+  try {
+    const response = await axios.post('http://localhost:3000/api/todo', { task_description: newTask }, { withCredentials: true });
+    setTasks([...tasks, response.data.todo]);
+    setNewTask('');
+    setMessage('Task added successfully');
+  } catch (error) {
+    console.error('Error adding task:', error);
+    setMessage('Failed to add task');
   }
+};
 
-  return (
-    <Content>
-      <header className="header">
-        <h1>Checklist for selfcare</h1>
-        <p>{currentDate}</p>
-      </header>
-      <section className="task-section">
-        <ul className="task-list">
-          {Array.isArray(tasks) && tasks.map(task => (
-            task && (
-              <li key={task._id || task.task_description}>
-                <input
-                  type="checkbox"
-                  checked={task.is_completed === true}
-                  onChange={(e) => handleTaskChange(task._id, e.target.checked)}
-                />
-                {task.task_description || 'No description'}
-              </li>
-            )
-          ))}
-        </ul>
-        {predefinedTasksAdded && (
-          <div className="input-container">
-            <input
-              type="text"
-              value={newTask}
-              onChange={(e) => setNewTask(e.target.value)}
-              onKeyPress={handleKeyPress}
-              placeholder="New task description"
-              className='text-gray-600'
-            />
-            <button onClick={handleAddTask}>Add Task</button>
-          </div>
-        )}
-        {message && <p className="message">{message}</p>}
-      </section>
-    </Content>
-  );
+const handleKeyPress = (e) => {
+  if (e.key === 'Enter') {
+    handleAddTask();
+  }
+};
+
+if (loading) {
+  return <div>Loading...</div>;
+}
+
+if (!user) {
+  return <div>Unauthorized. Please log in.</div>;
+}
+
+return (
+  <Content>
+    <header className="header">
+      <h1>Checklist for selfcare</h1>
+      <p>{currentDate}</p>
+    </header>
+    <section className="task-section">
+      <ul className="task-list">
+        {Array.isArray(tasks) && tasks.map(task => (
+          task && (
+            <li key={task._id || task.task_description}>
+              <input
+                type="checkbox"
+                checked={task.is_completed === true}
+                onChange={(e) => handleTaskChange(task._id, e.target.checked)}
+              />
+              {task.task_description || 'No description'}
+            </li>
+          )
+        ))}
+      </ul>
+      {predefinedTasksAdded && (
+        <div className="input-container">
+          <input
+            type="text"
+            value={newTask}
+            onChange={(e) => setNewTask(e.target.value)}
+            onKeyPress={handleKeyPress}
+            placeholder="New task description"
+            className='text-gray-600'
+          />
+          <button onClick={handleAddTask}>Add Task</button>
+        </div>
+      )}
+      {message && <p className="message">{message}</p>}
+    </section>
+  </Content>
+);
 }
 
 export default Checklist;
