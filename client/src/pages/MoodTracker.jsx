@@ -11,47 +11,37 @@ function MoodTracker() {
   const [user, setUser] = useState(null);
   const [recordedMood, setRecordedMood] = useState('');
   const [moodId, setMoodId] = useState(null);
-  const [dataFetched, setDataFetched] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
     const today = new Date();
-    today.setHours(0, 0, 0, 0);  // Set to midnight
-    const formattedDate = today.toISOString();  // Use ISO string for consistency
-    setCurrentDate(formatDate(today)); // Set formatted date
+    today.setHours(0, 0, 0, 0);
+    const formattedDate = today.toISOString();
+    setCurrentDate(formatDate(today));
 
     axios
       .get('http://localhost:3000/api/user', { withCredentials: true })
       .then((res) => {
-        const { user } = res.data;
-        setUser(user);
+        setUser(res.data.user);
         return axios.get('http://localhost:3000/api/mood', {
-          params: { user_id: user._id, date: formattedDate },
+          params: { user_id: res.data.user._id, date: formattedDate },
           withCredentials: true,
         });
       })
       .then((res) => {
-        const { mood } = res.data;
-        if (mood) {
-          setRecordedMood(mood.mood);
-          setSelectedMood(mood.mood);
-          setMoodId(mood._id);
-          localStorage.setItem('recordedMood', mood.mood);
+        if (res.data && res.data.mood) {
+          setRecordedMood(res.data.mood);
+          setSelectedMood(res.data.mood);
+          setMoodId(res.data._id);
         }
-        setDataFetched(true);
       })
       .catch((err) => {
-        console.error(err);
-        if (err.response && err.response.status === 401) {
-          navigate('/login');
-        }
-        setDataFetched(true);
+        if (err.response?.status === 401) navigate('/login');
       });
   }, [navigate]);
 
-  // Function to format the date to MM/DD/YYYY
   const formatDate = (date) => {
-    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-based
+    const month = String(date.getMonth() + 1).padStart(2, '0');
     const day = String(date.getDate()).padStart(2, '0');
     const year = date.getFullYear();
     return `${month}/${day}/${year}`;
@@ -59,56 +49,34 @@ function MoodTracker() {
 
   const handleMoodSelect = (mood) => {
     setSelectedMood(mood);
-    setMessage(`Mood selected: ${mood}`);
-    localStorage.setItem('selectedMood', mood);
     handleSubmit(mood);
   };
 
   const handleSubmit = async (mood) => {
-    if (!user) {
-      setMessage('User not found');
-      return;
-    }
-  
+    if (!user) return setMessage('User not found');
+
     setLoading(true);
     try {
       const today = new Date();
-      today.setHours(0, 0, 0, 0);  // Set date to midnight
+      today.setHours(0, 0, 0, 0);
       const formattedDate = today.toISOString();
-  
-      let response;
-      if (moodId) {
-        response = await axios.put(
-          `http://localhost:3000/api/mood/${moodId}`,
-          {
-            user_id: user._id,
-            mood: mood,
-            date: formattedDate,
-          },
-          { withCredentials: true }
-        );
-      } else {
-        response = await axios.post(
-          'http://localhost:3000/api/mood',
-          {
-            user_id: user._id,
-            mood: mood,
-            date: formattedDate,
-          },
-          { withCredentials: true }
-        );
-        setMoodId(response.data._id);
-      }
-  
-      setMessage(`Mood recorded successfully: ${mood}`);
+
+      const moodData = {
+        user_id: user._id,
+        mood,
+        date: formattedDate,
+      };
+
+      const response = moodId
+        ? await axios.put(`http://localhost:3000/api/mood/${moodId}`, moodData, { withCredentials: true })
+        : await axios.post('http://localhost:3000/api/mood', moodData, { withCredentials: true });
+
+      setMoodId(response.data._id);
       setRecordedMood(mood);
-      localStorage.setItem('recordedMood', mood);
+      setMessage(`Mood ${moodId ? 'updated' : 'recorded'} successfully: ${mood}`);
     } catch (error) {
-      if (error.response && error.response.status === 401) {
-        navigate('/login');
-      } else {
-        setMessage('Failed to record mood');
-      }
+      if (error.response?.status === 401) navigate('/login');
+      else setMessage('Failed to record mood');
     } finally {
       setLoading(false);
     }
@@ -118,26 +86,17 @@ function MoodTracker() {
     <Content>
       <header className="header">
         <h1>Select Your Mood Today</h1>
-        <p>{currentDate}</p> {/* Display formatted date */}
+        <p>{currentDate}</p>
       </header>
       <div className="mood-options">
-        <div
-          className={`mood-icon ${selectedMood === 'happy' ? 'selected' : ''}`}
-          onClick={() => handleMoodSelect('happy')}
-        >
+        <div className={`mood-icon ${selectedMood === 'happy' ? 'selected' : ''}`} onClick={() => handleMoodSelect('happy')}>
           <img src="https://img.icons8.com/emoji/48/000000/smiling-face-with-heart-eyes.png" alt="happy" />
         </div>
-        <div
-          className={`mood-icon ${selectedMood === 'numb' ? 'selected' : ''}`}
-          onClick={() => handleMoodSelect('numb')}
-        >
+        <div className={`mood-icon ${selectedMood === 'numb' ? 'selected' : ''}`} onClick={() => handleMoodSelect('numb')}>
           <img src="https://img.icons8.com/emoji/48/000000/expressionless-face.png" alt="numb" />
         </div>
-        <div
-          className={`mood-icon ${selectedMood === 'sad' ? 'selected' : ''}`}
-          onClick={() => handleMoodSelect('sad')}
-        >
-          <img src="https://img.icons8.com/?size=48&id=63238&format=png&color=000000" alt="sad" />
+        <div className={`mood-icon ${selectedMood === 'sad' ? 'selected' : ''}`} onClick={() => handleMoodSelect('sad')}>
+          <img src="https://img.icons8.com/emoji/48/000000/crying-face.png" alt="sad" />
         </div>
       </div>
       {loading && <p>Recording...</p>}
