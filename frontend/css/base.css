@@ -60,6 +60,14 @@ body {
     background-color: rgba(59, 13, 138, 0.1); /* Subtle background to differentiate the content area */
 }
 
+/* Logo Styling */
+.logo {
+    width: 150px; /* Adjust width as needed */
+    height: auto;
+    margin-bottom: 20px;
+    display: block;
+}
+
 /* Button Styling */
 button {
     cursor: pointer;
