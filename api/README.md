@@ -8,5 +8,5 @@ install npm version 10.9.0
 run npm install
 
 - to run the app:
-npm run dev (in development mode)
-npm run start (in production mode)
+npm run dev (in development mode).
+npm run start (in production mode).
