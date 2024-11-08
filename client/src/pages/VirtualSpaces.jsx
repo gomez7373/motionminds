@@ -54,15 +54,15 @@ function VirtualSpaces() {
             </header>
 
             <div className="space-options">
-                <button className="space-option" onClick={() => navigateTo('/Beach')}>
-                    Beach
-                </button>
-                <button className="space-option" onClick={() => navigateTo('/Forest')}>
+                <a className="space-option" href='/vr.html'>
+                    Space
+                </a>
+                {/* <button className="space-option" onClick={() => navigateTo('/Forest')}>
                     Forest
                 </button>
                 <button className="space-option" onClick={() => navigateTo('/Mountain')}>
                     Mountain
-                </button>
+                </button> */}
             </div>
 
             {loading && <p className="loading">Loading...</p>}
@@ -80,9 +80,9 @@ function VirtualSpaces() {
                                 <p className="session-score">
                                     Score: <span className="session-detail">{session.score}</span>
                                 </p>
-                                <p className="session-duration">
+                                {/*<p className="session-duration">
                                     Duration: <span className="session-detail">{session.duration} seconds</span>
-                                </p>
+                                </p>*/}
                             </div>
                             <div className="date-container">
                                 <p className="session-date">
