@@ -1,0 +1,42 @@
+/* client/src/components/Navbar.css */
+.side-menu {
+    width: 250px;
+    background: #2d2159;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.logo-link {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.navbar-logo {
+    width: 150px;
+    height: auto;
+}
+
+.side-menu ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.side-menu li {
+    margin: 15px 0;
+}
+
+.nav-link {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 18px;
+    display: block;
+    transition: background-color 0.3s ease, color 0.3s;
+}
+
+.nav-link:hover {
+    background-color: #007080;
+    color: #ffffff;
+    padding: 10px;
+    border-radius: 5px;
+}
