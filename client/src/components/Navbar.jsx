@@ -2,14 +2,14 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import LogoutButton from './LogoutButton';
-import './Navbar.css'; // Assuming any styling specific to the Navbar component
+import '../styles/Navbar.css'; // Assuming any styling specific to the Navbar component
 
 function Navbar() {
     const { isAuthenticated } = useContext(AuthContext);
 
     return (
         <nav className="side-menu">
-            <Link to="/" className="logo-link">
+            <Link to="/emotionsmanagement" className="logo-link">
                 <img src="/assets/logo.png" alt="MotionMinds Logo" className="navbar-logo" /> {/* Correct logo path */}
             </Link>
             <ul>

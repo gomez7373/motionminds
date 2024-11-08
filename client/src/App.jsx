@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Home from './pages/Home';
+import Emanagement from './pages/Emanagement';
 import Profile from './pages/Profile';
 import UpdateProfile from './pages/UpdateProfile';
 import MoodTracker from './pages/MoodTracker';
@@ -14,12 +14,13 @@ import Navbar from './components/Navbar';
 import Beach from './pages/Beach';
 import Forest from './pages/Forest';
 import Mountain from './pages/Mountain';
-
+import Home from './pages/Home';
 function App() {
   return (
     <Container>
       <Navbar />
       <Routes>
+        <Route path="/emotionsmanagement" element={<Emanagement />} />
         <Route path="/" element={<Home />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/updateprofile" element={<UpdateProfile />} />
