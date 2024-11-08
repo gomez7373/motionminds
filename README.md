@@ -1,27 +1,20 @@
-MotionMinds
+## MotionMinds ## 
 
 Introduction
 
 MotionMinds was created from a deep understanding of the challenges faced by individuals with disabilities. As developers who share similar experiences, we know the importance of tools that support both daily tasks and emotional well-being. MotionMinds is more than an app—it’s a companion designed to offer comfort, empowerment, and a sense of control.
 With tracking tools and an AR relaxation environment, our platform aims to help users feel supported and in control of their well-being. Our vision is to foster a community where challenges are met with resilience and hope. Our slogan, "Unlock Your Potential, One Motion at a Time," embodies our belief that great things can be accomplished step by step, with persistence leading to continuous improvement.
 
-Table of Contents
+## Table of Contents
+- [Introduction](#introduction)
+- [Project Overview](#project-overview)
+- [Technologies Used](#technologies-used)
+- [Features](#features)
+- [Future Plans](#future-plans)
+- [Setup and Running the App](#setup-and-running-the-app)
+- [Contributors](#contributors)
+- [License](#license)
 
-Introduction
-
-Project Overview
-
-Technologies Used
-
-Features
-
-Future Plans
-
-Setup and Running the App
-
-Contributors
-
-License
 
 
 Project Overview
@@ -106,53 +99,53 @@ Visuals
 
  
 
-Future Plans
+# Future Plans
 
-Expand AR and VR capabilities for guided motor therapy and exercise routines.
+1. Expand AR and VR capabilities for guided motor therapy and exercise routines.
 
-Develop a tracking system to monitor and analyze user progress in motor therapy with a daily score ranging from 0 to 100.
+2. Develop a tracking system to monitor and analyze user progress in motor therapy with a daily score ranging from 0 to 100.
 
-Implement professional crisis support features for emergency assistance with mental health providers.
+3. Implement professional crisis support features for emergency assistance with mental health providers.
 
-Develop medical appointment reminders and additional health tracking systems:
+4. Develop medical appointment reminders and additional health tracking systems:
 
-Subdivided areas of health monitoring to cover different user needs.
-
-
-Create a provider portal for tracking patient progress:
-
-Include patient feedback notes on medication effects, marked as "positive" or "negative."
-
-Add a dedicated space for patients to document specific effects they experience.
+5. Subdivided areas of health monitoring to cover different user needs.
 
 
-Add a feature for users to attach medications, track side effects, and view brief explanations of each medication's purpose and potential side effects.
+6. Create a provider portal for tracking patient progress:
 
-Integrate period (menstrual) tracking and task management tools tailored for women with PMS.
+• Include patient feedback notes on medication effects, marked as "positive" or "negative."
 
-Introduce a sleep tracker for individuals with insomnia to monitor sleep patterns and duration.
-
-Explore additional health monitoring tools:
-
-Hydration tracking with reminders and intake recording.
-
-Enhanced mood tracking to capture daily variations and potential triggers.
-
-Exercise monitoring for consistent movement and fitness.
+• Add a dedicated space for patients to document specific effects they experience.
 
 
-Enhance accessibility features with alarms, voice commands, and audio cues for users with disabilities.
+• Add a feature for users to attach medications, track side effects, and view brief explanations of each medication's purpose and potential side effects.
 
-Develop data visualization tools for comprehensive tracking of wellness and productivity.
+7. Integrate period (menstrual) tracking and task management tools tailored for women with PMS.
+
+8. Introduce a sleep tracker for individuals with insomnia to monitor sleep patterns and duration.
+
+9. Explore additional health monitoring tools:
+
+• Hydration tracking with reminders and intake recording.
+
+• Enhanced mood tracking to capture daily variations and potential triggers.
+
+• Exercise monitoring for consistent movement and fitness.
 
 
-Setup and Running the App
+10. Enhance accessibility features with alarms, voice commands, and audio cues for users with disabilities.
 
-Prerequisites
+11. Develop data visualization tools for comprehensive tracking of wellness and productivity.
+
+
+○ Setup and Running the App
+
+# Prerequisites
 
 Ensure you have Node.js and npm installed.
 
-Running the Back-End
+# Running the Back-End
 
 1. Navigate to the api/ directory:
 
@@ -170,7 +163,7 @@ npm run dev  # For development mode
 
 
 
-Running the Front-End
+# Running the Front-End
 
 1. Navigate to the client/ directory:
 
@@ -190,13 +183,13 @@ npm run dev
 
 Example Commands for Two-Terminal Setup
 
-Terminal 1 (Back-End):
+# Terminal 1 (Back-End):
 
 cd path/to/motionminds/api
 npm install
 npm run dev
 
-Terminal 2 (Front-End):
+# Terminal 2 (Front-End):
 
 cd path/to/motionminds/client
 npm install
@@ -206,15 +199,15 @@ Database Setup
 
 Ensure MongoDB is running locally or replace the connection string with a cloud-based MongoDB URI in the config.js file.
 
-Contributors
+# Contributors
 
-Sheila Gomez: Lead front-end developer using HTML, CSS, and JavaScript. Responsible for creating user interfaces and documentation.
+Sheila Gomez: Lead front-end developer using HTML, CSS, JavaScript and react. Responsible for creating user interfaces and documentation.
 
 Luis Soto: AR developer using Blender and Unity (C#). Developed the landing page using HTML/CSS.
 
-Jeremy: Back-end developer using Node.js, Express.js, and MongoDB. Collaborated on front-end integration and development.
+Jeremy: Back-end developer using Node.js, Express.js, MongoDB and react. Collaborated on front-end integration and development.
 
 
-License
+# License
 
 This project is licensed under the Apache License 2.0.
