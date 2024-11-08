@@ -1,6 +1,6 @@
-## MotionMinds ## 
+# MotionMinds #
 
-# Introduction
+## Introduction ##
 
 MotionMinds was created from a deep understanding of the challenges faced by individuals with disabilities. As developers who share similar experiences, we know the importance of tools that support both daily tasks and emotional well-being. MotionMinds is more than an app—it’s a companion designed to offer comfort, empowerment, and a sense of control.
 With tracking tools and an AR relaxation environment, our platform aims to help users feel supported and in control of their well-being. Our vision is to foster a community where challenges are met with resilience and hope. Our slogan, "Unlock Your Potential, One Motion at a Time," embodies our belief that great things can be accomplished step by step, with persistence leading to continuous improvement.
