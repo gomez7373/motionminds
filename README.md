@@ -1,6 +1,6 @@
 ## MotionMinds ## 
 
-Introduction
+# Introduction
 
 MotionMinds was created from a deep understanding of the challenges faced by individuals with disabilities. As developers who share similar experiences, we know the importance of tools that support both daily tasks and emotional well-being. MotionMinds is more than an app—it’s a companion designed to offer comfort, empowerment, and a sense of control.
 With tracking tools and an AR relaxation environment, our platform aims to help users feel supported and in control of their well-being. Our vision is to foster a community where challenges are met with resilience and hope. Our slogan, "Unlock Your Potential, One Motion at a Time," embodies our belief that great things can be accomplished step by step, with persistence leading to continuous improvement.
@@ -17,7 +17,7 @@ With tracking tools and an AR relaxation environment, our platform aims to help 
 
 
 
-Project Overview
+# Project Overview
 
 MotionMinds is a web application that combines productivity tools with wellness support, created specifically for individuals with disabilities. The project currently includes:
 
@@ -32,7 +32,7 @@ User Authentication: Session-based authentication ensures user data is secure.
 Responsive UI: Interactive elements ensure an engaging user experience.
 
 
-Technologies Used
+# Technologies Used
 
 Front-End
 
@@ -61,7 +61,7 @@ Unity: For building AR/VR experiences.
 C#: For scripting in Unity.
 
 
-Features
+# Features
 
 Current Features
 
@@ -139,9 +139,9 @@ Visuals
 11. Develop data visualization tools for comprehensive tracking of wellness and productivity.
 
 
-○ Setup and Running the App
+# Setup and Running the App
 
-# Prerequisites
+- Prerequisites
 
 Ensure you have Node.js and npm installed.
 
