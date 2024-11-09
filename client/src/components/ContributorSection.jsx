@@ -11,7 +11,7 @@ const contributors = [
 
     },
     { 
-        name: 'Jerremy Cardona', 
+        name: 'Jeremy Cardona', 
         img: '/src/assets/jeca.jpg', 
         linkedin: 'https://www.linkedin.com/in/jeca-profile' 
     },
