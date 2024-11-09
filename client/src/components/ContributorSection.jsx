@@ -17,7 +17,7 @@ const contributors = [
     },
     { 
 
-        name: 'luso', 
+        name: 'Luis Soto', 
         img: '/src/assets/luso.jpg', 
         linkedin: 'https://www.linkedin.com/in/luso-profile' 
     },
@@ -27,7 +27,7 @@ const contributors = [
 const ContributorSection = () => {
     return (
         <section className="contributor-section">
-            <h2>Meet Our Contributors</h2>
+            <h2>Meet Our Software Engineer</h2>
             <div className="contributor-list">
                 {contributors.map((contributor, index) => (
                     <div key={index} className="contributor-card">
