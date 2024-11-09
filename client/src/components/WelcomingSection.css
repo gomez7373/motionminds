@@ -11,6 +11,12 @@
     color: #ffffff;
 }
 
+/* Styling for the main heading */
+.welcoming-section h2 {
+    font-size: 2.2rem; /* Increased font size */
+    font-weight: bold; /* Bold for emphasis */
+}
+
 /* Styling for the image container */
 .welcoming-images {
     display: flex;
@@ -22,6 +28,7 @@
 /* Styling for each individual image */
 .welcome-img {
     width: 250px;
+    height: 250px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }

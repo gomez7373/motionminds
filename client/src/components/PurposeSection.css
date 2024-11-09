@@ -14,13 +14,15 @@
 
 /* Header styling */
 .purpose-section h2 {
-    font-size: 24px;
+    font-size: 2.5rem; /* Increased font size for emphasis and consistency with other headings in the section.px;
+     font-weight: bold; /* Bold for emphasis */
+     font-weight: bold; /* Bold for emphasis */
     color: #007bff;
 }
 
 /* Paragraph styling */
 .purpose-section p {
-    font-size: 16px;
+    font-size: 17px;
     line-height: 1.5;
     color: #d1d5db; /* Light gray for contrast */
 }

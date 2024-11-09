@@ -28,13 +28,34 @@
 /* Individual contributor card styling */
 .contributor-card {
     max-width: 240px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.contributor-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Styling for contributor images */
+.contributor-img {
+    width: 100%;
+    height: auto;
+    border-radius: 50%;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
     text-align: center;
 }
 
 /* Contributor image styling */
 .contributor-img {
-    width: 100%;
-    border-radius: 50%;
+    width: 75%;
+    height: 75%;
+    ;
+    border-radius: 60%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }
 
