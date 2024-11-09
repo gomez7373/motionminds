@@ -1,0 +1,52 @@
+/* src/components/ContributorSection.css */
+
+/* General styling for the contributor section */
+.contributor-section {
+    margin: 20px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    color: #ffffff;
+}
+
+/* Styling for the contributor list */
+.contributor-list {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+/* Individual contributor card styling */
+.contributor-card {
+    max-width: 150px;
+    text-align: center;
+}
+
+/* Contributor image styling */
+.contributor-img {
+    width: 100%;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+/* Styling for contributor buttons */
+.contributor-name-button {
+    margin-top: 10px;
+    padding: 8px 12px;
+    background-color: #007bff; /* Primary button color */
+    color: #ffffff;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: capitalize;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.contributor-name-button:hover {
+    background-color: #0056b3; /* Darker blue for hover */
+    transform: scale(1.05);
+}

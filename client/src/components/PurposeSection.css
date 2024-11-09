@@ -1,0 +1,26 @@
+/* src/components/PurposeSection.css */
+
+/* General styling for the purpose section */
+.purpose-section {
+    margin: 20px auto; /* Center the section */
+    padding: 20px;
+    max-width: 600px; /* Set a maximum width for a more rectangular shape */
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    color: #ffffff;
+}
+
+/* Header styling */
+.purpose-section h2 {
+    font-size: 24px;
+    color: #ffffff;
+}
+
+/* Paragraph styling */
+.purpose-section p {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #d1d5db; /* Light gray for contrast */
+}

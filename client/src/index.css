@@ -316,3 +316,37 @@ select {
   text-align: center;
   margin-top: 50px;
 }
+/* Global scrollbar styling with refined cool tones */
+body::-webkit-scrollbar {
+  width: 12px; /* Wider for a more pronounced look */
+}
+
+body::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1); /* Subtle track background */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2); /* Soft inner shadow */
+}
+
+body::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #1e3a8a, #3b82f6); /* Gradient from deep blue to sky blue */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 0 10px rgba(59, 130, 246, 0.5); /* Soft blue glow */
+  transition: background 0.3s, transform 0.3s, box-shadow 0.3s; /* Smooth transitions */
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #3b82f6, #60a5fa); /* Lighter blue gradient on hover */
+  transform: scale(1.1); /* Slight enlargement on hover */
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.7); /* Brighter blue glow */
+}
+
+/* For Firefox */
+body {
+  scrollbar-width: thin; /* Thin scrollbar for a sleek look */
+  scrollbar-color: #3b82f6 rgba(255, 255, 255, 0.1); /* Thumb and track color */
+}
+
+/* Adding smooth scrolling for better user experience */
+html {
+  scroll-behavior: smooth;
+}
