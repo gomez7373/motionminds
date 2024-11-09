@@ -5,19 +5,21 @@ import './ContributorSection.css'; // Import CSS for styling this component
 // Array of contributors with their names, images, and LinkedIn profile links
 const contributors = [
     { 
-        name: 'luso', 
-        img: '/src/assets/luso.jpg', 
-        linkedin: 'https://www.linkedin.com/in/luso-profile' 
-    },
-    { 
         name: 'shgo', 
         img: '/src/assets/shgo.jpg', 
         linkedin: 'https://www.linkedin.com/in/shgo-profile' 
+
     },
     { 
         name: 'jeca', 
         img: '/src/assets/jeca.jpg', 
         linkedin: 'https://www.linkedin.com/in/jeca-profile' 
+    },
+    { 
+
+        name: 'luso', 
+        img: '/src/assets/luso.jpg', 
+        linkedin: 'https://www.linkedin.com/in/luso-profile' 
     },
 ];
 
