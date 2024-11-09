@@ -14,9 +14,8 @@ function Home() {
         <Content>
             {/* Page header */}
             <header className='header'>
-            <h1 style={{ fontSize: '3.5rem' }}>Welcome</h1>
-            <h1 style={{ fontSize: '3.5rem' }}>to</h1>
-            <h1 style={{ fontSize: '3.5rem' }}>MotionMinds</h1>
+            <h1 style={{ fontSize: '4.5rem' }}>Welcome to MotionMinds </h1>
+
                 <h4> Unlock Your Potential, One Motion at a Time.</h4>
             </header>
 

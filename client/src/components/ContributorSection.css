@@ -2,13 +2,19 @@
 
 /* General styling for the contributor section */
 .contributor-section {
-    margin: 20px;
-    padding: 20px;
+    margin: 30px;
+    padding: 30px;
     background: rgba(255, 255, 255, 0.1);
     border-radius: 15px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
     text-align: center;
     color: #ffffff;
+}
+
+/* Styling for the main heading */
+.contributor-section h2 {
+    font-size: 2.5rem; /* Increased font size */
+    font-weight: bold; /* Bold for emphasis */
 }
 
 /* Styling for the contributor list */
@@ -21,7 +27,7 @@
 
 /* Individual contributor card styling */
 .contributor-card {
-    max-width: 150px;
+    max-width: 240px;
     text-align: center;
 }
 
