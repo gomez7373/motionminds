@@ -104,7 +104,7 @@ Visuals
 
  
 
-# Future Plans
+# Future Plans:
 
 1. Expand AR and VR capabilities for guided motor therapy and exercise routines.
 
