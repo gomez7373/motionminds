@@ -10,11 +10,11 @@ function Profile() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        console.log('User:', user);
         axios.get('http://localhost:3000/api/user', { 
             withCredentials: true 
         })
         .then(res => {
+            console.log('Response data:', res.data); // Log the response data
             const { user } = res.data; // Extract user from response data
             setUser(user);
             setLoading(false);
@@ -30,6 +30,11 @@ function Profile() {
     if (loading) {
         return <div className="loading-message">Loading...</div>;
     }
+
+    const formatDate = (dateString) => {
+        const options = { year: 'numeric', month: '2-digit', day: '2-digit', timeZone: 'UTC' };
+        return new Date(dateString).toLocaleDateString(undefined, options);
+    };
 
     return (
         <Content>
@@ -48,11 +53,11 @@ function Profile() {
                     <p className="profile-detail"><strong>First Name:</strong> {user.first_name}</p>
                     <p className="profile-detail"><strong>Last Name:</strong> {user.last_name}</p>
                     <p className="profile-detail"><strong>Location:</strong> {user.location}</p>
-                    <p className="profile-detail"><strong>Date of Birth:</strong> {new Date(user.date_of_birth).toLocaleDateString()}</p>
+                    <p className="profile-detail"><strong>Date of Birth:</strong> {formatDate(user.date_of_birth)}</p>
                     <p className="profile-detail"><strong>Gender:</strong> {user.gender}</p>
                     <p className="profile-detail"><strong>Phone:</strong> {user.phone}</p>
-                    <p className="profile-detail"><strong>Date Created:</strong> {new Date(user.date_created).toLocaleDateString()}</p>
-                    <p className="profile-detail"><strong>Last Login:</strong> {new Date(user.last_login).toLocaleDateString()}</p>
+                    <p className="profile-detail"><strong>Date Created:</strong> {formatDate(user.date_created)}</p>
+                    <p className="profile-detail"><strong>Last Login:</strong> {formatDate(user.last_login)}</p>
                 </div>
             </div>
         </Content>
