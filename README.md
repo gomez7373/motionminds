@@ -132,11 +132,11 @@ Visuals
 
 9. Explore additional health monitoring tools:
 
-• Hydration tracking with reminders and intake recording.
+-  Hydration tracking with reminders and intake recording.
 
-• Enhanced mood tracking to capture daily variations and potential triggers.
+-  Enhanced mood tracking to capture daily variations and potential triggers.
 
-• Exercise monitoring for consistent movement and fitness.
+-  Exercise monitoring for consistent movement and fitness.
 
 
 10. Enhance accessibility features with alarms, voice commands, and audio cues for users with disabilities.
