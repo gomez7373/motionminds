@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../styles/DailyProgress.css';
+import Clock from '../components/Clock'; // Import the Clock component
 
 function DailyProgress() {
   const [user, setUser] = useState(null);
@@ -118,12 +119,18 @@ function DailyProgress() {
 
   return (
     <div className="daily-progress-container">
+      {/* Add the Clock component at the top */}
+      
       <div className="progress-card">
-        <h1 className="title">Daily Progress</h1>
+      <h1 className="title" style={{ fontSize: '2.5rem',}}>Daily Progress</h1>
 
+   {/* Add the Clock component at the top */}
+   <Clock />
         <div className="input-group">
           <label htmlFor="date" className="label">
-            Select Date
+            <h2> SELECT </h2>
+
+            <h2> DATE </h2>
           </label>
           <input
             type="date"
@@ -133,10 +140,13 @@ function DailyProgress() {
             className="date-input"
           />
         </div>
-
+   {/* Add the Clock component at the top */}
+      {/* Add the Clock component at the top */}
+      
         <button onClick={createOrUpdateDailyProgress} className="create-button">
           {dailyProgress ? 'Update Daily Progress' : 'Create Daily Progress'}
         </button>
+   {/* Add the Clock component at the top */}
 
         {message && <p className="message">{message}</p>}
 

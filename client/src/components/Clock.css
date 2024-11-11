@@ -1,0 +1,34 @@
+
+/* Clock Container */
+.clock-container {
+    padding: 2px;
+    border-radius: 5px;
+    border: 1px solid #dddddd;
+    background: rgba(255, 255, 255, 0.1);
+    width: 65%;
+    box-sizing: border-box;
+    text-align: center;
+    margin-left: 127px;
+    font-size: 20px; /* Larger font size */
+    font-weight: bold; /* Bold text */
+    color: #ff9f82; /* Main text color */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    transition: border-color 0.3s, box-shadow 0.3s;
+    animation: pulse 2s infinite; /* Pulse animation */
+    text-align: center;
+    text-align: center;
+    text-shadow: 1px 1px 1px #000000, 1px 1px 1px #00ddff, 1px 1px 1px #00ddff;
+    margin-bottom: 20px;
+  }
+
+
+/* Clock Face */
+.clock-face {
+  font-size: 20px; /* Match font size with date input */
+
+  font-weight: bold; /* Bold text */
+  color: #ffffff; /* Main text color */
+  text-shadow: 1px 1px 1px #000000, 1px 1px 1px #00ddff, 1px 1px 1px #00ddff; /* Match shadow */
+  font-family: 'Courier New', Courier, monospace;
+  animation: pulse 2s infinite; /* Match pulse animation */
+}
