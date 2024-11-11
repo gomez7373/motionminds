@@ -119,12 +119,12 @@ Visuals
 
 6. Create a provider portal for tracking patient progress:
 
-• Include patient feedback notes on medication effects, marked as "positive" or "negative."
+ - Include patient feedback notes on medication effects, marked as "positive" or "negative."
 
-• Add a dedicated space for patients to document specific effects they experience.
+ - Add a dedicated space for patients to document specific effects they experience.
 
 
-• Add a feature for users to attach medications, track side effects, and view brief explanations of each medication's purpose and potential side effects.
+ - Add a feature for users to attach medications, track side effects, and view brief explanations of each medication's purpose and potential side effects.
 
 7. Integrate period (menstrual) tracking and task management tools tailored for women with PMS.
 
