@@ -200,7 +200,7 @@ cd path/to/motionminds/client
 npm install
 npm run dev
 
-Database Setup
+Database Setup:
 
 Ensure MongoDB is running locally or replace the connection string with a cloud-based MongoDB URI in the config.js file.
 
