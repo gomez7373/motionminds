@@ -1,5 +1,5 @@
 # MotionMinds #
-
+![MotionMinds Banner](./realbannersgc.png)
 ## Introduction ##
 
 . MotionMinds was created from a deep understanding of the challenges faced by individuals with disabilities. As developers who share similar experiences, we know the importance of tools that support both daily tasks and emotional well-being.
