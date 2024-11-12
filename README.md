@@ -24,7 +24,7 @@ Our slogan is, **"Unlock Your Potential, One Motion at a Time,"** embodying our 
 
 - [✨ Introduction ✨](#-introduction-)
 - [Project Overview 📋 ](#project-overview-)
-- [Technologies Used](#technologies-used-)
+- [Technologies Used 🛠 ](#technologies-used-)
 - [Features](#features-)
 - [Future Plans](#future-plans-)
 - [Setup and Running the App](#setup-and-running-the-app-)
