@@ -6,7 +6,6 @@
   <meta name='mobile-web-app-capable' content='yes'>
   <meta name='apple-mobile-web-app-capable' content='yes'>
   <link rel='icon' type='image/png' sizes='32x32' href=''>
-  <link rel='icon' type='image/png' sizes='96x96' href=''>
   <link rel='stylesheet' href='/motionminds/client/src/'>
   <title>Immersive Session with Hands</title>
 </head>
@@ -43,35 +42,7 @@
     let xrButton = null;
     let xrRefSpace = null;
     let isAR = false;
-    let radii = new Float32Array(25);
-    let positions = new Float32Array(16 * 25);
-    let boxes_left = [];
-    let boxes_right = [];
-    let boxes_none = [];
-    let tracked_boxes_left = [];
-    let tracked_boxes_right = [];
-    let tracked_boxes_none = [];
-    let boxes = {
-      input_left: boxes_left,
-      input_right: boxes_right,
-      input_none: boxes_none,
-      tracked_left: tracked_boxes_left,
-      tracked_right: tracked_boxes_right,
-      tracked_none: tracked_boxes_none
-    };
-    let indexFingerBoxes = {
-      input_left: null,
-      input_right: null,
-      tracked_left: null,
-      tracked_right: null
-    };
-    const defaultBoxColor = { r: 0.5, g: 0.5, b: 0.5 };
-    const leftBoxColor = { r: 1, g: 0, b: 1 };
-    const rightBoxColor = { r: 0, g: 1, b: 1 };
-    let interactionBox = null;
-    let leftInteractionBox = null;
-    let rightInteractionBox = null;
-
+    let xrSession = null; // Track the XR session to prevent duplicates
     let gl = null;
     let renderer = null;
     let scene = new Scene();
@@ -81,25 +52,81 @@
     const mirrorCanvas = document.getElementById('mirrorCanvas');
     const mirrorContext = mirrorCanvas ? mirrorCanvas.getContext('2d') : null;
 
-    function createBoxPrimitive(r, g, b) {
-      let boxBuilder = new BoxBuilder();
-      boxBuilder.pushCube([0, 0, 0], 1);
-      let boxPrimitive = boxBuilder.finishPrimitive(renderer);
-      let boxMaterial = new PbrMaterial();
-      boxMaterial.baseColorFactor.value = [r, g, b, 1];
-      return renderer.createRenderPrimitive(boxPrimitive, boxMaterial);
+    // Create WebGL context before starting XR session
+    gl = createWebGLContext({ xrCompatible: true });
+    renderer = new Renderer(gl);
+    scene.setRenderer(renderer);
+
+    // Function to create a custom projection matrix for the canvas to simulate a wider FOV
+    function createCustomProjectionMatrix() {
+      const fov = Math.PI / 1; // Increase FOV to 60 degrees (wider view)
+      const aspect = mirrorCanvas.width / mirrorCanvas.height;
+      const near = 0.1;
+      const far = 1000.0;
+      const projectionMatrix = mat4.create();
+      mat4.perspective(projectionMatrix, fov, aspect, near, far);
+      return projectionMatrix;
     }
 
-    function addBox(x, y, z, r, g, b, offset) {
-      let boxRenderPrimitive = createBoxPrimitive(r, g, b);
-      let boxNode = new Node();
-      boxNode.addRenderPrimitive(boxRenderPrimitive);
-      boxNode.selectable = true;
-      return boxNode;
+    const customProjectionMatrix = createCustomProjectionMatrix();
+
+    // Draws the VR view to mirrorCanvas using manual pixel readback and custom projection matrix
+    function drawVRViewToCanvas() {
+      if (gl && mirrorContext) {
+        const width = gl.drawingBufferWidth;
+        const height = gl.drawingBufferHeight;
+        const pixels = new Uint8Array(width * height * 4); // RGBA values
+
+        // Read pixels from WebGL canvas
+        gl.readPixels(0, 0, width, height, gl.RGBA, gl.UNSIGNED_BYTE, pixels);
+
+        // Create ImageData from pixel buffer, with vertical flip
+        const imageData = new ImageData(new Uint8ClampedArray(pixels), width, height);
+        flipImageDataVertically(imageData);
+
+        // Use an offscreen canvas to scale the ImageData to fill the mirrorCanvas
+        const offscreenCanvas = document.createElement("canvas");
+        offscreenCanvas.width = width;
+        offscreenCanvas.height = height;
+        const offscreenContext = offscreenCanvas.getContext("2d");
+        offscreenContext.putImageData(imageData, 0, 0);
+
+        // Clear the mirrorCanvas and draw the offscreen canvas content scaled to fit
+        mirrorContext.clearRect(0, 0, mirrorCanvas.width, mirrorCanvas.height);
+        mirrorContext.save();
+        mirrorContext.transform(
+          customProjectionMatrix[0], customProjectionMatrix[1],
+          customProjectionMatrix[4], customProjectionMatrix[5],
+          customProjectionMatrix[12], customProjectionMatrix[13]
+        );
+        mirrorContext.drawImage(
+          offscreenCanvas, 
+          0, 0, width, height, // Source dimensions
+          0, 0, mirrorCanvas.width, mirrorCanvas.height // Destination dimensions to scale up
+        );
+        mirrorContext.restore();
+
+        console.log("VR frame drawn using scaled readPixels with custom projection.");
+      } else {
+        console.error("WebGL or mirrorContext is not available.");
+      }
     }
 
-    function initHands() {
-      // Initialize hand nodes
+    // Flips ImageData vertically to match VR view orientation
+    function flipImageDataVertically(imageData) {
+      const width = imageData.width;
+      const height = imageData.height;
+      for (let y = 0; y < height / 2; y++) {
+        for (let x = 0; x < width; x++) {
+          const topIndex = (y * width + x) * 4;
+          const bottomIndex = ((height - y - 1) * width + x) * 4;
+          for (let i = 0; i < 4; i++) {
+            const temp = imageData.data[topIndex + i];
+            imageData.data[topIndex + i] = imageData.data[bottomIndex + i];
+            imageData.data[bottomIndex + i] = temp;
+          }
+        }
+      }
     }
 
     function initXR() {
@@ -120,27 +147,18 @@
       }
     }
 
-    function onRequestSession() {
-      return navigator.xr.requestSession(isAR ? 'immersive-ar' : 'immersive-vr', {
+    async function onRequestSession() {
+      if (xrSession) return;
+
+      xrSession = await navigator.xr.requestSession(isAR ? 'immersive-ar' : 'immersive-vr', {
         optionalFeatures: ['local-floor', 'bounded-floor', 'hand-tracking']
-      }).then(onSessionStarted);
+      });
+      onSessionStarted(xrSession);
     }
 
     function onSessionStarted(session) {
       xrButton.setSession(session);
       session.addEventListener('end', onSessionEnded);
-      session.addEventListener('inputsourceschange', onInputSourcesChange);
-      session.addEventListener('trackedsourceschange', onInputSourcesChange);
-      session.addEventListener('visibilitychange', e => {
-        if (e.session.visibilityState === 'visible-blurred') {
-          clearSceneBoxes();
-        }
-      });
-
-      gl = createWebGLContext({ xrCompatible: true });
-      renderer = new Renderer(gl);
-      initHands();
-      scene.setRenderer(renderer);
       session.updateRenderState({ baseLayer: new XRWebGLLayer(session, gl) });
       session.requestReferenceSpace('local').then(refSpace => {
         xrRefSpace = refSpace.getOffsetReferenceSpace(new XRRigidTransform({ x: 0, y: 0, z: 0 }));
@@ -148,30 +166,23 @@
       });
     }
 
-    function onEndSession(session) {
-      session.end();
+    function onEndSession() {
+      if (xrSession) {
+        xrSession.end();
+        xrSession = null;
+      }
     }
 
     function onSessionEnded(event) {
       xrButton.setSession(null);
       renderer = null;
-    }
-
-    function onInputSourcesChange(event) {
-      onSourcesChange(event, 'input_');
-    }
-
-    function updateInputSources(session, frame, refSpace) {
-      updateSources(session, frame, refSpace, session.inputSources, 'input_');
+      xrSession = null;
     }
 
     function onXRFrame(t, frame) {
       let session = frame.session;
       scene.startFrame();
       session.requestAnimationFrame(onXRFrame);
-      updateInputSources(session, frame, xrRefSpace);
-      updateTrackedSources(session, frame, xrRefSpace);
-      UpdateInteractables(t);
 
       let pose = frame.getViewerPose(xrRefSpace);
       if (pose) {
@@ -185,12 +196,9 @@
           scene.draw(view.projectionMatrix, view.transform);
         }
 
-        if (mirrorContext) {
-          mirrorContext.clearRect(0, 0, mirrorCanvas.width, mirrorCanvas.height);
-          mirrorContext.drawImage(gl.canvas, 0, 0, mirrorCanvas.width, mirrorCanvas.height);
-        }
+        gl.flush();
+        drawVRViewToCanvas();
       }
-
       scene.endFrame();
     }
 
