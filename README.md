@@ -59,11 +59,11 @@ MongoDB: NoSQL database for storing user data and tasks.
 
 AR/VR
 
-Blender: For 3D modeling and content creation.
+A-Frame: is a framework for building 3D and VR web experiences using simple HTML-like tags, compatible with WebXR and three.js.
 
-Unity: For building AR/VR experiences.
+WebXR: enables VR and AR experiences in browsers, supporting various devices and handling 3D rendering.
 
-C#: For scripting in Unity.
+Three.js: is a JavaScript library for 3D graphics in browsers, built on WebGL and often used with A-Frame.
 
 
 # Features
@@ -208,7 +208,7 @@ Ensure MongoDB is running locally or replace the connection string with a cloud-
 
 Sheila Gomez: Lead front-end developer using HTML, CSS, JavaScript and react. Responsible for creating user interfaces and documentation.
 
-Luis Soto: AR developer using Blender and Unity (C#). Developed the landing page using HTML/CSS.
+Luis Soto: AR developer using A-Frame, WebXR and javascript (Three.js) . Developed the landing page using HTML/CSS.
 
 Jeremy: Back-end developer using Node.js, Express.js, MongoDB and react. Collaborated on front-end integration and development.
 
