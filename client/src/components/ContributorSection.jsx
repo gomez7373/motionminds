@@ -7,7 +7,7 @@ const contributors = [
     { 
         name: 'Sheila Gomez', 
         img: '/src/assets/shgo.jpg', 
-        linkedin: 'https://www.linkedin.com/in/shgo-profile' 
+        linkedin: 'https://github.com/gomez7373' 
 
     },
     { 
@@ -19,7 +19,7 @@ const contributors = [
 
         name: 'Luis Soto', 
         img: '/src/assets/luso.jpg', 
-        linkedin: 'https://www.linkedin.com/in/luso-profile' 
+        linkedin: 'https://www.linkedin.com/in/luis-soto-4577252bb/' 
     },
 ];
 
