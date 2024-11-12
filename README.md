@@ -1,4 +1,3 @@
-# MotionMinds #
 ![MotionMinds Banner](./realbannersgc.png)
 ## Introduction ##
 
