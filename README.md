@@ -140,9 +140,11 @@ npm install
 
 # Run the server (development mode)
 npm run dev
+```
 
-Running the Front-End
+### **Running the Front-End**
 
+```bash
 # Navigate to the client/ directory
 cd path/to/motionminds/client
 
@@ -151,22 +153,22 @@ npm install
 
 # Start the development server
 npm run dev
+```
+### **Example Commands for Two-Terminal Setup**
 
-Example Commands for Two-Terminal Setup
-
-Terminal 1 (Back-End):
-
+# Terminal 1 (Back-End):
+```bash
 cd path/to/motionminds/api
 npm install
 npm run dev
-
-Terminal 2 (Front-End):
-
+```
+# Terminal 2 (Front-End):
+```bash
 cd path/to/motionminds/client
 npm install
 npm run dev
-
-Database Setup
+```
+# Database Setup
 
 Ensure MongoDB is running locally or replace the connection string with a cloud-based MongoDB URI in the config.js file.
 
