@@ -59,17 +59,17 @@ Our slogan is, **"Unlock Your Potential, One Motion at a Time,"** embodying our 
 
 </div>
 
-### **Front-End**
+# **Front-End**
 - **HTML & CSS**: For building and styling the user interface.
 - **JavaScript**: For adding dynamic behaviors and user interaction.
 - **React**: For component-based UI development.
 
-### **Back-End**
+# **Back-End**
 - **Node.js**: JavaScript runtime for server-side development.
 - **Express.js**: A minimalist framework for routing and handling HTTP requests.
 - **MongoDB**: NoSQL database for storing user data and tasks.
 
-### **AR/VR**
+# **AR/VR**
 - **A-Frame**: A framework for building 3D and VR web experiences using simple HTML-like tags, compatible with WebXR and three.js.
 - **WebXR**: Enables VR and AR experiences in browsers, supporting various devices and handling 3D rendering.
 - **Three.js**: A JavaScript library for 3D graphics in browsers, built on WebGL and often used with A-Frame.
@@ -78,11 +78,11 @@ Our slogan is, **"Unlock Your Potential, One Motion at a Time,"** embodying our 
 
 <div align="center">
 
-# 🚀 Features
+## 🚀 Features
 
 </div>
 
-### **Current Features**
+# **Current Features**
 - **Task Management**: 
   - Create, read, update, and delete user-specific tasks.
   - Filter tasks by date and manage completion statuses.
@@ -145,7 +145,7 @@ Our slogan is, **"Unlock Your Potential, One Motion at a Time,"** embodying our 
 ### **Prerequisites**
 Ensure you have Node.js and npm installed.
 
-### **Running the Back-End**
+# **Running the Back-End**
 
 ```bash
 # Navigate to the api/ directory
@@ -158,7 +158,7 @@ npm install
 npm run dev
 ```
 
-### **Running the Front-End**
+# **Running the Front-End**
 
 ```bash
 # Navigate to the client/ directory
@@ -170,7 +170,7 @@ npm install
 # Start the development server
 npm run dev
 ```
-### **Example Commands for Two-Terminal Setup**
+# **Example Commands for Two-Terminal Setup**
 
 # Terminal 1 (Back-End):
 ```bash
