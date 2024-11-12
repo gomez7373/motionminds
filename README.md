@@ -1,4 +1,6 @@
 ![MotionMinds Banner](./realbannersgc.png)
+
+
 ---
 
 
@@ -259,4 +261,6 @@ Jeremy: Back-end developer using Node.js, Express.js, MongoDB, and React. Collab
 
 
 ---
+
+
 
