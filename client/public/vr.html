@@ -6,7 +6,6 @@
   <meta name='mobile-web-app-capable' content='yes'>
   <meta name='apple-mobile-web-app-capable' content='yes'>
   <link rel='icon' type='image/png' sizes='32x32' href=''>
-  <link rel='icon' type='image/png' sizes='96x96' href=''>
   <link rel='stylesheet' href='/motionminds/client/src/'>
   <title>Immersive Session with Hands</title>
 </head>
@@ -23,6 +22,12 @@
     <p>Click 'Enter VR' to see content</p>
     <!-- Mirror Canvas for external display -->
     <canvas id="mirrorCanvas" width="800" height="600" style="border: 1px solid #000;"></canvas>
+    <div>
+      <!-- Input for music link -->
+      <label for="musicURL">Paste music link (MP3 URL): </label>
+      <input type="text" id="musicURL" placeholder="Enter music link here" style="width: 300px;">
+      <button onclick="loadMusic()">Play Music</button>
+    </div>
   </main>
   <script type="module">
     import { WebXRButton } from './js/util/webxr-button.js';
@@ -44,35 +49,6 @@
     let xrRefSpace = null;
     let isAR = false;
     let xrSession = null; // Track the XR session to prevent duplicates
-    let radii = new Float32Array(25);
-    let positions = new Float32Array(16 * 25);
-    let boxes_left = [];
-    let boxes_right = [];
-    let boxes_none = [];
-    let tracked_boxes_left = [];
-    let tracked_boxes_right = [];
-    let tracked_boxes_none = [];
-    let boxes = {
-      input_left: boxes_left,
-      input_right: boxes_right,
-      input_none: boxes_none,
-      tracked_left: tracked_boxes_left,
-      tracked_right: tracked_boxes_right,
-      tracked_none: tracked_boxes_none
-    };
-    let indexFingerBoxes = {
-      input_left: null,
-      input_right: null,
-      tracked_left: null,
-      tracked_right: null
-    };
-    const defaultBoxColor = { r: 0.5, g: 0.5, b: 0.5 };
-    const leftBoxColor = { r: 1, g: 0, b: 1 };
-    const rightBoxColor = { r: 0, g: 1, b: 1 };
-    let interactionBox = null;
-    let leftInteractionBox = null;
-    let rightInteractionBox = null;
-
     let gl = null;
     let renderer = null;
     let scene = new Scene();
@@ -82,67 +58,81 @@
     const mirrorCanvas = document.getElementById('mirrorCanvas');
     const mirrorContext = mirrorCanvas ? mirrorCanvas.getContext('2d') : null;
 
+    // Audio setup
+    let audio = null;
+    function loadMusic() {
+      const musicURL = document.getElementById('musicURL').value;
+      if (audio) {
+        audio.pause();
+      }
+      if (musicURL) {
+        audio = new Audio(musicURL);
+        audio.loop = true;
+
+        // Attempt to load and play the music after setting the source
+        audio.addEventListener('canplaythrough', () => {
+          playMusic();
+        });
+
+        audio.addEventListener('error', () => {
+          console.error("Failed to load audio:", audio.error);
+          alert("Failed to load the audio file. Please check the URL.");
+        });
+      } else {
+        alert('Please enter a valid music link.');
+      }
+    }
+
+    function playMusic() {
+      if (audio) {
+        audio.play().catch(error => {
+          console.error("Failed to play audio:", error);
+          alert("Audio playback failed. Ensure the link is a valid MP3 and try again.");
+        });
+      }
+    }
+
+    function stopMusic() {
+      if (audio) {
+        audio.pause();
+      }
+    }
+
     // Create WebGL context before starting XR session
     gl = createWebGLContext({ xrCompatible: true });
     renderer = new Renderer(gl);
     scene.setRenderer(renderer);
 
-    // Function to create a custom projection matrix for the canvas to simulate a wider FOV
-    function createCustomProjectionMatrix() {
-      const fov = Math.PI / 1; // Increase FOV to 60 degrees (wider view)
-      const aspect = mirrorCanvas.width / mirrorCanvas.height;
-      const near = 0.1;
-      const far = 1000.0;
-      const projectionMatrix = mat4.create();
-      mat4.perspective(projectionMatrix, fov, aspect, near, far);
-      return projectionMatrix;
-    }
-
-    const customProjectionMatrix = createCustomProjectionMatrix();
-
-    // Draws the VR view to mirrorCanvas using manual pixel readback and custom projection matrix
     function drawVRViewToCanvas() {
       if (gl && mirrorContext) {
         const width = gl.drawingBufferWidth;
         const height = gl.drawingBufferHeight;
-        const pixels = new Uint8Array(width * height * 4); // RGBA values
+        const pixels = new Uint8Array(width * height * 4);
 
-        // Read pixels from WebGL canvas
         gl.readPixels(0, 0, width, height, gl.RGBA, gl.UNSIGNED_BYTE, pixels);
 
-        // Create ImageData from pixel buffer, with vertical flip
         const imageData = new ImageData(new Uint8ClampedArray(pixels), width, height);
         flipImageDataVertically(imageData);
 
-        // Use an offscreen canvas to scale the ImageData to fill the mirrorCanvas
         const offscreenCanvas = document.createElement("canvas");
         offscreenCanvas.width = width;
         offscreenCanvas.height = height;
         const offscreenContext = offscreenCanvas.getContext("2d");
         offscreenContext.putImageData(imageData, 0, 0);
 
-        // Clear the mirrorCanvas and draw the offscreen canvas content scaled to fit
         mirrorContext.clearRect(0, 0, mirrorCanvas.width, mirrorCanvas.height);
-        mirrorContext.save();
-        mirrorContext.transform(
-          customProjectionMatrix[0], customProjectionMatrix[1],
-          customProjectionMatrix[4], customProjectionMatrix[5],
-          customProjectionMatrix[12], customProjectionMatrix[13]
-        );
         mirrorContext.drawImage(
           offscreenCanvas, 
-          0, 0, width, height, // Source dimensions
-          0, 0, mirrorCanvas.width, mirrorCanvas.height // Destination dimensions to scale up
+          0, 0, width, height,
+          0, 0, mirrorCanvas.width, mirrorCanvas.height 
         );
-        mirrorContext.restore();
 
-        console.log("VR frame drawn using scaled readPixels with custom projection.");
+        console.log("VR frame drawn using scaled readPixels.");
       } else {
         console.error("WebGL or mirrorContext is not available.");
       }
     }
 
-    // Flips ImageData vertically to match VR view orientation
     function flipImageDataVertically(imageData) {
       const width = imageData.width;
       const height = imageData.height;
@@ -184,19 +174,12 @@
         optionalFeatures: ['local-floor', 'bounded-floor', 'hand-tracking']
       });
       onSessionStarted(xrSession);
+      playMusic();
     }
 
     function onSessionStarted(session) {
       xrButton.setSession(session);
       session.addEventListener('end', onSessionEnded);
-      session.addEventListener('inputsourceschange', onInputSourcesChange);
-      session.addEventListener('trackedsourceschange', onInputSourcesChange);
-      session.addEventListener('visibilitychange', e => {
-        if (e.session.visibilityState === 'visible-blurred') {
-          clearSceneBoxes();
-        }
-      });
-
       session.updateRenderState({ baseLayer: new XRWebGLLayer(session, gl) });
       session.requestReferenceSpace('local').then(refSpace => {
         xrRefSpace = refSpace.getOffsetReferenceSpace(new XRRigidTransform({ x: 0, y: 0, z: 0 }));
@@ -208,6 +191,7 @@
       if (xrSession) {
         xrSession.end();
         xrSession = null;
+        stopMusic();
       }
     }
 
@@ -215,43 +199,13 @@
       xrButton.setSession(null);
       renderer = null;
       xrSession = null;
-    }
-
-    function onInputSourcesChange(event) {
-      onSourcesChange(event, 'input_');
-    }
-
-    // Placeholder function for updateSources
-    function updateSources(session, frame, refSpace, sources, prefix) {
-      // Add code to handle sources if needed
-    }
-
-    // Placeholder function for updateTrackedSources
-    function updateTrackedSources(session, frame, refSpace) {
-      // Add code to handle tracked sources if needed
-    }
-
-    // Placeholder function for onSourcesChange
-    function onSourcesChange(event, prefix) {
-      // Add code to handle input sources change if needed
-    }
-
-    // Placeholder function for UpdateInteractables
-    function UpdateInteractables(t) {
-      // Add code to update interactables if needed
-    }
-
-    function updateInputSources(session, frame, refSpace) {
-      updateSources(session, frame, refSpace, session.inputSources, 'input_');
+      stopMusic();
     }
 
     function onXRFrame(t, frame) {
       let session = frame.session;
       scene.startFrame();
       session.requestAnimationFrame(onXRFrame);
-      updateInputSources(session, frame, xrRefSpace);
-      updateTrackedSources(session, frame, xrRefSpace);
-      UpdateInteractables(t);
 
       let pose = frame.getViewerPose(xrRefSpace);
       if (pose) {
@@ -266,29 +220,10 @@
         }
 
         gl.flush();
+
         drawVRViewToCanvas();
       }
       scene.endFrame();
-    }
-
-    // Helper function to flip ImageData vertically
-    function flipImageData(imageData) {
-      const width = imageData.width;
-      const height = imageData.height;
-      const halfHeight = Math.floor(height / 2);
-      for (let y = 0; y < halfHeight; y++) {
-        for (let x = 0; x < width; x++) {
-          const topIndex = (y * width + x) * 4;
-          const bottomIndex = ((height - y - 1) * width + x) * 4;
-
-          for (let i = 0; i < 4; i++) {
-            const temp = imageData.data[topIndex + i];
-            imageData.data[topIndex + i] = imageData.data[bottomIndex + i];
-            imageData.data[bottomIndex + i] = temp;
-          }
-        }
-      }
-      return imageData;
     }
 
     initXR();
