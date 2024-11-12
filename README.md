@@ -1,33 +1,50 @@
 ![MotionMinds Banner](./realbannersgc.png)
-## Introduction ##
-
-. MotionMinds was created from a deep understanding of the challenges faced by individuals with disabilities. As developers who share similar experiences, we know the importance of tools that support both daily tasks and emotional well-being.
-
-. MotionMinds is more than an app—it’s a companion designed to offer comfort, empowerment, and a sense of control.
-
-. With tracking tools and an AR relaxation environment, our platform aims to help users feel supported and in control of their well-being. Our vision is to foster a community where challenges are met with resilience and hope.
-
-. Our slogan is, "Unlock Your Potential, One Motion at a Time," this embodies our belief that great things can be accomplished step by step, with persistence leading to continuous improvement.
-
-## Table of Contents
-- [Introduction](#introduction)
-- [Project Overview](#project-overview)
-- [Technologies Used](#technologies-used)
-- [Features](#features)
-- [Future Plans](#future-plans)
-- [Setup and Running the App](#setup-and-running-the-app)
-- [Contributors](#contributors)
-- [License](#license)
+---
 
 
 
-# Project Overview
+<div align="center">✨ Introduction ✨
 
-MotionMinds is a web application that combines productivity tools with wellness support, created specifically for individuals with disabilities. The project currently includes:
+MotionMinds was created from a deep understanding of the challenges faced by individuals with disabilities. As developers who share similar experiences, we know the importance of tools that support both daily tasks and emotional well-being.
 
-Task Management: Allows users to create, read, update, and delete tasks, filter tasks by date, and manage their completion status.
+MotionMinds is more than an app—it’s a companion designed to offer comfort, empowerment, and a sense of control.
 
-Mood Tracker: Provides a way to track moods with three options: happy, numb, and sad. This feature is designed for potential future expansion.
+With tracking tools and an AR relaxation environment, our platform aims to help users feel supported and in control of their well-being. Our vision is to foster a community where challenges are met with resilience and hope.
+
+Our slogan is, "Unlock Your Potential, One Motion at a Time," embodying our belief that great things can be accomplished step by step, with persistence leading to continuous improvement.
+
+</div>
+---
+
+<div align="center">📚 Table of Contents 📚
+
+</div>✨ Introduction ✨
+
+📋 Project Overview
+
+🛠 Technologies Used
+
+🚀 Features
+
+🔮 Future Plans
+
+⚙️ Setup and Running the App
+
+👥 Contributors
+
+📜 License
+
+
+
+---
+
+<div align="center">📋 Project Overview
+
+</div>MotionMinds is a web application that combines productivity tools with wellness support, created specifically for individuals with disabilities. The project currently includes:
+
+Task Management: Create, read, update, and delete tasks, filter tasks by date, and manage their completion status.
+
+Mood Tracker: Track moods with three options: happy, numb, and sad. This feature is designed for potential future expansion.
 
 AR Relaxation Space: Offers a calming environment where users can de-stress through guided AR experiences.
 
@@ -36,9 +53,12 @@ User Authentication: Session-based authentication ensures user data is secure.
 Responsive UI: Interactive elements ensure an engaging user experience.
 
 
-# Technologies Used
 
-Front-End
+---
+
+<div align="center">🛠 Technologies Used
+
+</div>Front-End
 
 HTML & CSS: For building and styling the user interface.
 
@@ -58,16 +78,19 @@ MongoDB: NoSQL database for storing user data and tasks.
 
 AR/VR
 
-A-Frame: is a framework for building 3D and VR web experiences using simple HTML-like tags, compatible with WebXR and three.js.
+A-Frame: A framework for building 3D and VR web experiences using simple HTML-like tags, compatible with WebXR and three.js.
 
-WebXR: enables VR and AR experiences in browsers, supporting various devices and handling 3D rendering.
+WebXR: Enables VR and AR experiences in browsers, supporting various devices and handling 3D rendering.
 
-Three.js: is a JavaScript library for 3D graphics in browsers, built on WebGL and often used with A-Frame.
+Three.js: A JavaScript library for 3D graphics in browsers, built on WebGL and often used with A-Frame.
 
 
-# Features
 
-Current Features
+---
+
+<div align="center">🚀 Features
+
+</div>Current Features
 
 Task Management:
 
@@ -99,57 +122,69 @@ Interactive elements built with JavaScript for an engaging user experience.
 
 
 
-Visuals
 
- 
+---
 
-# Future Plans:
+<div align="center">🔮 Future Plans
 
-1. Expand AR and VR capabilities for guided motor therapy and exercise routines.
+</div>1. Expand AR and VR capabilities for guided motor therapy and exercise routines.
+
 
 2. Develop a tracking system to monitor and analyze user progress in motor therapy with a daily score ranging from 0 to 100.
 
+
 3. Implement professional crisis support features for emergency assistance with mental health providers.
 
-4. Develop medical appointment reminders and additional health tracking systems:
+
+4. Develop medical appointment reminders and additional health tracking systems.
+
 
 5. Subdivided areas of health monitoring to cover different user needs.
 
 
 6. Create a provider portal for tracking patient progress:
 
- - Include patient feedback notes on medication effects, marked as "positive" or "negative."
+Include patient feedback notes on medication effects, marked as "positive" or "negative."
 
- - Add a dedicated space for patients to document specific effects they experience.
+Add a dedicated space for patients to document specific effects they experience.
+
+Add a feature for users to attach medications, track side effects, and view brief explanations of each medication's purpose and potential side effects.
 
 
- - Add a feature for users to attach medications, track side effects, and view brief explanations of each medication's purpose and potential side effects.
 
 7. Integrate period (menstrual) tracking and task management tools tailored for women with PMS.
 
+
 8. Introduce a sleep tracker for individuals with insomnia to monitor sleep patterns and duration.
+
 
 9. Explore additional health monitoring tools:
 
--  Hydration tracking with reminders and intake recording.
+Hydration tracking with reminders and intake recording.
 
--  Enhanced mood tracking to capture daily variations and potential triggers.
+Enhanced mood tracking to capture daily variations and potential triggers.
 
--  Exercise monitoring for consistent movement and fitness.
+Exercise monitoring for consistent movement and fitness.
+
 
 
 10. Enhance accessibility features with alarms, voice commands, and audio cues for users with disabilities.
 
+
 11. Develop data visualization tools for comprehensive tracking of wellness and productivity.
 
 
-# Setup and Running the App
 
-- Prerequisites
+
+---
+
+<div align="center">⚙️ Setup and Running the App
+
+</div>Prerequisites
 
 Ensure you have Node.js and npm installed.
 
-# Running the Back-End
+Running the Back-End
 
 1. Navigate to the api/ directory:
 
@@ -167,7 +202,7 @@ npm run dev  # For development mode
 
 
 
-# Running the Front-End
+Running the Front-End
 
 1. Navigate to the client/ directory:
 
@@ -187,31 +222,41 @@ npm run dev
 
 Example Commands for Two-Terminal Setup
 
-# Terminal 1 (Back-End):
+Terminal 1 (Back-End):
 
 cd path/to/motionminds/api
 npm install
 npm run dev
 
-# Terminal 2 (Front-End):
+Terminal 2 (Front-End):
 
 cd path/to/motionminds/client
 npm install
 npm run dev
 
-Database Setup:
+Database Setup
 
 Ensure MongoDB is running locally or replace the connection string with a cloud-based MongoDB URI in the config.js file.
 
-# Contributors
 
-Sheila Gomez: Lead front-end developer using HTML, CSS, JavaScript react and procreate. Responsible for creating user interfaces, logo art and documentation.
+---
 
-Luis Soto: AR developer using A-Frame, WebXR and javascript (Three.js) . Developed the landing page using HTML/CSS.
+<div align="center">👥 Contributors
 
-Jeremy: Back-end developer using Node.js, Express.js, MongoDB and react. Collaborated on front-end integration and development.
+</div>Sheila Gomez: Lead front-end developer using HTML, CSS, JavaScript, React, and Procreate. Responsible for creating user interfaces, logo art, and documentation.
+
+Luis Soto: AR developer using A-Frame, WebXR, and JavaScript (Three.js). Developed the landing page using HTML/CSS.
+
+Jeremy: Back-end developer using Node.js, Express.js, MongoDB, and React. Collaborated on front-end integration and development.
 
 
-# License
 
-This project is licensed under the Apache License 2.0.
+---
+
+<div align="center">📜 License
+
+</div>This project is licensed under the Apache License 2.0.
+
+
+---
+
