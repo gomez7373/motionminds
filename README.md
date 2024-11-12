@@ -35,7 +35,7 @@ Our slogan is, **"Unlock Your Potential, One Motion at a Time,"** embodying our 
 
 <div align="center">
 
-## 📋 Project Overview
+## Project Overview 📋
 
 </div>
 
