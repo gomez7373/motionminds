@@ -42,9 +42,13 @@ Our slogan is, **"Unlock Your Potential, One Motion at a Time,"** embodying our 
 **MotionMinds** is a web application that combines productivity tools with wellness support, created specifically for individuals with disabilities. The project currently includes:
 
 - **Task Management**: Create, read, update, and delete tasks, filter tasks by date, and manage their completion status.
+- 
 - **Mood Tracker**: Track moods with three options: happy, numb, and sad. This feature is designed for potential future expansion.
+- 
 - **AR Relaxation Space**: Offers a calming environment where users can de-stress through guided AR experiences.
+- 
 - **User Authentication**: Session-based authentication ensures user data is secure.
+- 
 - **Responsive UI**: Interactive elements ensure an engaging user experience.
 
 ---
@@ -101,21 +105,33 @@ Our slogan is, **"Unlock Your Potential, One Motion at a Time,"** embodying our 
 </div>
 
 1. Expand AR and VR capabilities for guided motor therapy and exercise routines.
+   
 2. Develop a tracking system to monitor and analyze user progress in motor therapy with a daily score ranging from 0 to 100.
+   
 3. Implement professional crisis support features for emergency assistance with mental health providers.
+  
 4. Develop medical appointment reminders and additional health tracking systems.
+ 
 5. Subdivided areas of health monitoring to cover different user needs.
+   
 6. Create a provider portal for tracking patient progress:
+   
    - Include patient feedback notes on medication effects, marked as "positive" or "negative."
    - Add a dedicated space for patients to document specific effects they experience.
    - Add a feature for users to attach medications, track side effects, and view brief explanations of each medication's purpose and potential side effects.
+     
 7. Integrate period (menstrual) tracking and task management tools tailored for women with PMS.
+   
 8. Introduce a sleep tracker for individuals with insomnia to monitor sleep patterns and duration.
+ 
 9. Explore additional health monitoring tools:
+    
    - Hydration tracking with reminders and intake recording.
    - Enhanced mood tracking to capture daily variations and potential triggers.
    - Exercise monitoring for consistent movement and fitness.
+     
 10. Enhance accessibility features with alarms, voice commands, and audio cues for users with disabilities.
+    
 11. Develop data visualization tools for comprehensive tracking of wellness and productivity.
 
 ---
@@ -177,11 +193,13 @@ Ensure MongoDB is running locally or replace the connection string with a cloud-
 
 <div align="center">👥 Contributors
 
-</div>Sheila Gomez: Lead front-end developer using HTML, CSS, JavaScript, React, and Procreate. Responsible for creating user interfaces, logo art, and documentation.
+</div>
 
-Luis Soto: AR developer using A-Frame, WebXR, and JavaScript (Three.js). Developed the landing page using HTML/CSS.
+- Sheila Gomez: Lead front-end developer using HTML, CSS, JavaScript, React, and Procreate. Responsible for creating user interfaces, logo & banner art, and documentation.
 
-Jeremy: Back-end developer using Node.js, Express.js, MongoDB, and React. Collaborated on front-end integration and development.
+- Luis Soto: AR developer using A-Frame, WebXR, and JavaScript (Three.js). Developed the landing page using HTML/CSS.
+
+- Jeremy: Back-end developer using Node.js, Express.js, MongoDB, and React. Collaborated on front-end integration and development.
 
 
 
