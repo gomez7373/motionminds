@@ -57,20 +57,7 @@
     renderer = new Renderer(gl);
     scene.setRenderer(renderer);
 
-    // Function to create a custom projection matrix for the canvas to simulate a wider FOV
-    function createCustomProjectionMatrix() {
-      const fov = Math.PI / 1; // Increase FOV to 60 degrees (wider view)
-      const aspect = mirrorCanvas.width / mirrorCanvas.height;
-      const near = 0.1;
-      const far = 1000.0;
-      const projectionMatrix = mat4.create();
-      mat4.perspective(projectionMatrix, fov, aspect, near, far);
-      return projectionMatrix;
-    }
-
-    const customProjectionMatrix = createCustomProjectionMatrix();
-
-    // Draws the VR view to mirrorCanvas using manual pixel readback and custom projection matrix
+    // Draws the VR view to mirrorCanvas using manual pixel readback
     function drawVRViewToCanvas() {
       if (gl && mirrorContext) {
         const width = gl.drawingBufferWidth;
@@ -93,20 +80,13 @@
 
         // Clear the mirrorCanvas and draw the offscreen canvas content scaled to fit
         mirrorContext.clearRect(0, 0, mirrorCanvas.width, mirrorCanvas.height);
-        mirrorContext.save();
-        mirrorContext.transform(
-          customProjectionMatrix[0], customProjectionMatrix[1],
-          customProjectionMatrix[4], customProjectionMatrix[5],
-          customProjectionMatrix[12], customProjectionMatrix[13]
-        );
         mirrorContext.drawImage(
           offscreenCanvas, 
           0, 0, width, height, // Source dimensions
           0, 0, mirrorCanvas.width, mirrorCanvas.height // Destination dimensions to scale up
         );
-        mirrorContext.restore();
 
-        console.log("VR frame drawn using scaled readPixels with custom projection.");
+        console.log("VR frame drawn using scaled readPixels.");
       } else {
         console.error("WebGL or mirrorContext is not available.");
       }
@@ -148,7 +128,7 @@
     }
 
     async function onRequestSession() {
-      if (xrSession) return;
+      if (xrSession) return; // Prevent multiple instances
 
       xrSession = await navigator.xr.requestSession(isAR ? 'immersive-ar' : 'immersive-vr', {
         optionalFeatures: ['local-floor', 'bounded-floor', 'hand-tracking']
@@ -196,7 +176,10 @@
           scene.draw(view.projectionMatrix, view.transform);
         }
 
+        // Ensure WebGL operations are complete before drawing to mirrorCanvas
         gl.flush();
+
+        // Draw VR frame to mirrorCanvas using pixel readback
         drawVRViewToCanvas();
       }
       scene.endFrame();
