@@ -1,0 +1,85 @@
+/* src/pages/Home.css */
+
+/* General styling for the home page */
+.home-page {
+    background: linear-gradient(135deg, #3b0d8a, #1b1464, #007080);
+    color: #ffffff;
+    padding: 40px;
+    border-radius: 15px;
+    text-align: center;
+}
+
+/* Styling for header */
+.header {
+    text-align: center;
+    color: #ffffff;
+    margin-bottom: 20px;
+}
+
+/* Enhanced styling for the main heading with peach outline */
+.header h1 {
+    font-size: 5rem; /* Increased size for more impact */
+    font-weight: bold;
+    color: #007080; /* Main text color */
+    -webkit-text-stroke: 1px #ff9f82; /* Peach outline */
+    text-shadow: 
+        2px 2px 0 #ff9f82, /* Shadow for outline effect */
+        -2px -2px 0 #ff9f82, 
+        2px -2px 0 #ff9f82, 
+        -2px 2px 0 #ff9f82;
+    animation: scaleUp 2s forwards; /* Scale-up animation */
+}
+
+/* Styling for the slogan */
+.header h4 {
+    font-size: 1.5rem; /* Reduced font size for the slogan */
+    font-weight: 500; /* Lighter weight for subtle appearance */
+    color: #007bff; /* Teal color for consistency */
+    text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.6);
+    margin-top: 5px;
+    animation: fadeIn 2s ease-in-out;
+}
+
+/* Button styling for interactions */
+button {
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+/* Animation for the slogan */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* New scale-up animation for the main heading */
+@keyframes scaleUp {
+    0% {
+        transform: scale(0.5); /* Start small */
+        opacity: 0;
+    }
+    50% {
+        opacity: 1; /* Gradually appear */
+    }
+    100% {
+        transform: scale(1); /* End at full size */
+        opacity: 1;
+    }
+}

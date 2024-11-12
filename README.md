@@ -104,7 +104,7 @@ Visuals
 
  
 
-# Future Plans
+# Future Plans:
 
 1. Expand AR and VR capabilities for guided motor therapy and exercise routines.
 
@@ -119,12 +119,12 @@ Visuals
 
 6. Create a provider portal for tracking patient progress:
 
-• Include patient feedback notes on medication effects, marked as "positive" or "negative."
+ - Include patient feedback notes on medication effects, marked as "positive" or "negative."
 
-• Add a dedicated space for patients to document specific effects they experience.
+ - Add a dedicated space for patients to document specific effects they experience.
 
 
-• Add a feature for users to attach medications, track side effects, and view brief explanations of each medication's purpose and potential side effects.
+ - Add a feature for users to attach medications, track side effects, and view brief explanations of each medication's purpose and potential side effects.
 
 7. Integrate period (menstrual) tracking and task management tools tailored for women with PMS.
 
@@ -132,11 +132,11 @@ Visuals
 
 9. Explore additional health monitoring tools:
 
-• Hydration tracking with reminders and intake recording.
+-  Hydration tracking with reminders and intake recording.
 
-• Enhanced mood tracking to capture daily variations and potential triggers.
+-  Enhanced mood tracking to capture daily variations and potential triggers.
 
-• Exercise monitoring for consistent movement and fitness.
+-  Exercise monitoring for consistent movement and fitness.
 
 
 10. Enhance accessibility features with alarms, voice commands, and audio cues for users with disabilities.
@@ -206,7 +206,7 @@ Ensure MongoDB is running locally or replace the connection string with a cloud-
 
 # Contributors
 
-Sheila Gomez: Lead front-end developer using HTML, CSS, JavaScript and react. Responsible for creating user interfaces and documentation.
+Sheila Gomez: Lead front-end developer using HTML, CSS, JavaScript react and procreate. Responsible for creating user interfaces, logo art and documentation.
 
 Luis Soto: AR developer using A-Frame, WebXR and javascript (Three.js) . Developed the landing page using HTML/CSS.
 

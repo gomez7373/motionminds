@@ -1,0 +1,42 @@
+/* src/components/WelcomingSection.css */
+
+/* General styling for the welcoming section */
+.welcoming-section {
+    margin: 30px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    color: #ffffff;
+}
+
+/* Styling for the main heading */
+.welcoming-section h2 {
+    padding-bottom: 10px;
+    font-size: 2.2rem; /* Increased font size */
+    font-weight: bold; /* Bold for emphasis */
+}
+
+/* Styling for the image container */
+.welcoming-images {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+/* Styling for each individual image */
+.welcome-img {
+    width: 250px;
+    height: 250px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+/* Responsive design for mobile */
+@media (max-width: 768px) {
+    .welcome-img {
+        width: 100px;
+    }
+}

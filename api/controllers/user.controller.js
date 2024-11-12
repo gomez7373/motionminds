@@ -52,6 +52,11 @@ const updateUserById = async (req, res) => {
       user.password = await bcrypt.hash(req.body.password, 10);
     }
 
+    // Ensure date_of_birth is saved as UTC
+    if (user.date_of_birth) {
+      user.date_of_birth = new Date(user.date_of_birth.toISOString());
+    }
+
     await user.save();
     res.status(200).json({ message: 'User updated successfully', user });
   } catch (error) {

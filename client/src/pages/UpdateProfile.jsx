@@ -18,7 +18,10 @@ function UpdateProfile() {
         .then(res => {
             const { user } = res.data; // Extract user from response data
             setUser(user);
-            setFormData(user); // Initialize form data with user data
+            setFormData({
+                ...user,
+                date_of_birth: user.date_of_birth ? new Date(user.date_of_birth).toISOString().split('T')[0] : ''
+            }); // Initialize form data with user data
             setLoading(false);
         })
         .catch(err => {

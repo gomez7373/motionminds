@@ -54,6 +54,9 @@ const userSchema = new mongoose.Schema({
 
 userSchema.pre('save', function(next) {
     this.last_login = Date.now();
+    if (this.date_of_birth) {
+        this.date_of_birth = new Date(this.date_of_birth.toISOString());
+    }
     next();
 });
 

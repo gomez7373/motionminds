@@ -1,93 +1,154 @@
 /* General Styles */
 body {
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #3b0d8a, #1b1464);
-    color: #ffffff; /* White text for better contrast */
-    margin: 0;
-    padding: 0;
-  }
-  
-  /* Daily Progress Container */
-  .daily-progress-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh; /* Full height */
-    padding: 20px;
-  }
-  
-  /* Progress Card */
-  .progress-card {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 15px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-    padding: 30px;
-    max-width: 600px;
-    width: 100%; /* Full width */
-    text-align: center;
-  }
-  
-  /* Title */
-  .title {
-    font-size: 32px;
-    color: #fff;
-    margin-bottom: 20px;
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* Title shadow for depth */
-  }
-  
-  /* Input Group */
-  .input-group {
-    margin-bottom: 20px;
-  }
-  
-  .label {
-    font-size: 18px;
-    margin-bottom: 5px;
-  }
-  
-  /* Date Input */
-  .date-input {
-    padding: 12px;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-    width: 100%;
-    box-sizing: border-box;
-  }
-  
-  /* Button Styles */
-  .create-button {
-    cursor: pointer;
-    padding: 12px 25px;
-    border-radius: 25px;
-    background-color: #007bff; /* Button color */
-    color: #ffffff;
-    font-size: 16px;
-    font-weight: bold;
-    transition: background-color 0.3s, transform 0.2s;
-    border: none;
-  }
-  
-  .create-button:hover {
-    background-color: #0056b3; /* Darker blue for hover */
-    transform: scale(1.05);
-  }
-  
-  /* Message Styling */
-  .message {
-    color: #ff6b6b;
-    margin-top: 15px;
-  }
-  
-  /* Progress Details */
-  .progress-details {
-    margin-top: 20px;
-  }
-  
-  .no-progress {
-    color: #fff;
-    font-size: 18px;
-  }
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #3b0d8a, #1b1464);
+  color: #ffffff; /* White text for better contrast */
+  margin: 0;
+  padding: 0;
+}
 
-#date {
-  color : #000000;
+/* Daily Progress Container */
+.daily-progress-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Full height */
+  padding: 20px;
+}
+
+/* Progress Card */
+
+.progress-card {
+  text-align: center;
+  kground: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  padding: 30px;
+  max-width: 600px;
+  width: 100%; /* Full width */
+  text-align: center;
+}
+
+/* Progress Card */
+.progress-card {
+  text-align: center;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  padding: 30px;
+  max-width: 600px;
+  width: 100%; /* Full width */
+  text-align: center;
+}
+
+/* Title */
+.title {
+  font-size: 2.5rem; /* Increased size for more impact */
+  font-weight: bold;
+  color: #007080; /* Main text color */
+  -webkit-text-stroke: 1px #ff9f82; /* Subtle peach outline */
+  text-shadow: 
+      3px 3px 3px rgba(1, 1, 1, 1), /* Black shadow for depth */
+      0px 0px 10px #00000022; /* Peach outline */
+  margin-bottom: 20px;
+  animation: scaleUp 1.5s forwards; /* Smooth scale-up animation */
+}
+
+/* Animation for the title */
+@keyframes scaleUp {
+  0% {
+    transform: scale(0.5); /* Start small */
+    opacity: 0;
+  }
+  50% {
+    opacity: 1; /* Fade in effect */
+  }
+  100% {
+    transform: scale(1); /* Full size */
+    opacity: 1;
+  }
+}
+
+/* Input Group */
+.input-group {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.label {
+  font-size: 16px;
+  margin-bottom: 1px;
+  margin-right: 10px;
+  font-weight: bold;
+  align-items: center;
+  color: #007080; /* Main text color */
+
+
+} 
+
+/* Date Input */
+.date-input {
+  padding: 2px;
+  border-radius: 1px;
+  border: 1px solid #dddddd;
+  background: rgba(255, 255, 255, 0.1);
+  width: 65%;
+  box-sizing: border-box /* Include padding and border in width */;
+  text-align: center;
+  margin-left: 56px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  font-size: 20px; /* Larger font size */
+  font-weight: bold; /* Bold text */
+  text-align: center;
+  color: #ffffff; /* Main text color */
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  text-shadow: 1px 1px 1px #000000, 1px 1px 1px #00ddff, 1px 1px 1px #00ddff;
+  
+}
+
+/* Button Styles */
+.create-button {
+  cursor: pointer;
+  
+  padding: 12px 25px;
+  border-radius: 25px;
+  background-color: #007bff; /* Button color */
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: bold;
+  margin-left: -20px;
+  transition: background-color 0.3s, transform 0.2s;
+  border: none;
+}
+
+.create-button:hover {
+  background-color: #0056b3; /* Darker blue for hover */
+  transform: scale(1.05);
+}
+
+/* Message Styling */
+.message {
+  color: #ff6b6b;
+  margin-top: 15px;
+}
+
+/* Progress Details */
+.progress-details {
+  margin-top: 20px;
+}
+
+.no-progress {
+  color: #007bff;
+  border-radius: 3%;
+  padding: 10px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* Progress List */
+.progress-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
 }
