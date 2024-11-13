@@ -29,7 +29,7 @@ Our slogan is, **"Unlock Your Potential, One Motion at a Time,"** embodying our 
 - [🔮 Future Plans 🔮](#future-plans-)
 - [⚙️ Setup and Running the App ⚙️](#setup-and-running-the-app-))
 - [👥 Contributors 👥](#contributors-)
-- [License](#license-📜)
+- [📜 License 📜](#license-)
 
 ---
 
@@ -141,9 +141,10 @@ npm install
 # Run the server (development mode)
 npm run dev
 ```
-```bash
-Running the Front-End
 
+### Running the Front-End
+
+```bash
 # Navigate to the client/ directory
 cd path/to/motionminds/client
 
@@ -153,7 +154,7 @@ npm install
 # Start the development server
 npm run dev
 ```
-Example Commands for Two-Terminal Setup
+# Example Commands for Two-Terminal Setup
 
 ```bash
 Terminal 1 (Back-End):
