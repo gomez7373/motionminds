@@ -192,11 +192,13 @@ Ensure MongoDB is running locally or replace the connection string with a cloud-
   
 ## Contributors 👥
 
-</div>Sheila Gomez: Lead front-end developer using HTML, CSS, JavaScript, React, and Procreate. Responsible for creating user interfaces, logo art, and documentation.
+</div>
 
-Luis Soto: AR developer using A-Frame, WebXR, and JavaScript (Three.js). Developed the landing page using HTML/CSS.
+# Sheila Gomez: Lead front-end developer using HTML, CSS, JavaScript, React, and Procreate. Responsible for creating user interfaces, logo art, and documentation.
 
-Jeremy: Back-end developer using Node.js, Express.js, MongoDB, and React. Collaborated on front-end integration and development.
+- Luis Soto: AR developer using A-Frame, WebXR, and JavaScript (Three.js). Developed the landing page using HTML/CSS.
+
+* Jeremy: Back-end developer using Node.js, Express.js, MongoDB, and React. Collaborated on front-end integration and development.
 
 
 
