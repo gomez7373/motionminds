@@ -131,12 +131,11 @@ Our slogan is, **"Unlock Your Potential, One Motion at a Time,"** embodying our 
 
 ## Setup and Running the App ⚙️
 
-
+</div>
 
 **Prerequisites**
 Ensure you have Node.js and npm installed.
 
-</div>
 
 **Running the Back-End**
 
