@@ -22,13 +22,13 @@ Our slogan is, **"Unlock Your Potential, One Motion at a Time,"** embodying our 
 
 </div>
 
-- [Introduction](#introduction-✨)
-- [Project Overview](#project-overview-📋)
-- [Technologies Used](#technologies-used-🛠)
-- [Features](#features-🚀)
-- [Future Plans](#future-plans-🔮)
-- [Setup and Running the App](#setup-and-running-the-app-⚙️)
-- [Contributors](#contributors-👥)
+- [✨ Introduction ✨](#introduction-)
+- [📋 Project Overview 📋](#project-overview-)
+- [🛠 Technologies Used 🛠](#technologies-used-)
+- [🚀 Features 🚀](#features-)
+- [🔮 Future Plans 🔮](#future-plans-)
+- [⚙️ Setup and Running the App ⚙️](#setup-and-running-the-app-))
+- [👥 Contributors 👥](#contributors-)
 - [License](#license-📜)
 
 ---
@@ -140,7 +140,8 @@ npm install
 
 # Run the server (development mode)
 npm run dev
-
+```
+```bash
 Running the Front-End
 
 # Navigate to the client/ directory
@@ -151,26 +152,29 @@ npm install
 
 # Start the development server
 npm run dev
-
+```
 Example Commands for Two-Terminal Setup
 
+```bash
 Terminal 1 (Back-End):
 
 cd path/to/motionminds/api
 npm install
 npm run dev
-
+```
+```bash
 Terminal 2 (Front-End):
 
 cd path/to/motionminds/client
 npm install
 npm run dev
-
+```
+```bash
 Database Setup
 
 Ensure MongoDB is running locally or replace the connection string with a cloud-based MongoDB URI in the config.js file.
 
-
+```
 ---
 
 <div align="center">Contributors 👥
