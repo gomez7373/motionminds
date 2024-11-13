@@ -193,7 +193,7 @@ Ensure MongoDB is running locally or replace the connection string with a cloud-
 
 </div>
 
-* Sheila Gomez: Lead front-end developer using HTML, CSS, JavaScript, React, and Procreate. Responsible for creating user interfaces, logo art, and documentation.
+* Sheila Gomez: Lead front-end developer using HTML, CSS, JavaScript, React, and Procreate. Responsible for creating user interfaces, logo & banner art, and documentation.
 
 * Luis Soto: AR developer using A-Frame, WebXR, and JavaScript (Three.js). Developed the landing page using HTML/CSS.
 
