@@ -131,10 +131,12 @@ Our slogan is, **"Unlock Your Potential, One Motion at a Time,"** embodying our 
 
 ## Setup and Running the App ⚙️
 
-</div>
+
 
 **Prerequisites**
 Ensure you have Node.js and npm installed.
+
+</div>
 
 **Running the Back-End**
 
@@ -161,6 +163,7 @@ npm install
 # Start the development server
 npm run dev
 ```
+
 **Example Commands for Two-Terminal Setup**
 
 ```bash
@@ -203,4 +206,6 @@ Jeremy: Back-end developer using Node.js, Express.js, MongoDB, and React. Collab
   
   ## License 📜
 
-</div>This project is licensed under the Apache License 2.0.
+</div>
+
+This project is licensed under the Apache License 2.0.
