@@ -42,7 +42,7 @@ Our slogan is, **"Unlock Your Potential, One Motion at a Time,"** embodying our 
 
 <div align="center">
 
-## 📋 Project Overview 📋
+## Project Overview 📋
 
 </div>
 
@@ -58,7 +58,7 @@ Our slogan is, **"Unlock Your Potential, One Motion at a Time,"** embodying our 
 
 <div align="center">
 
-## 🛠 Technologies Used 🛠
+## Technologies Used 🛠
 
 </div>
 
@@ -81,7 +81,7 @@ Our slogan is, **"Unlock Your Potential, One Motion at a Time,"** embodying our 
 
 <div align="center">
 
-## 🚀 Features 🚀
+## Features 🚀
 
 </div>
 
@@ -103,7 +103,7 @@ Our slogan is, **"Unlock Your Potential, One Motion at a Time,"** embodying our 
 
 <div align="center">
 
-## 🔮 Future Plans 🔮
+## Future Plans 🔮
 
 </div>
 
@@ -129,7 +129,7 @@ Our slogan is, **"Unlock Your Potential, One Motion at a Time,"** embodying our 
 
 <div align="center">
 
-## ⚙️ Setup and Running the App ⚙️
+## Setup and Running the App ⚙️
 
 </div>
 
@@ -187,7 +187,7 @@ Ensure MongoDB is running locally or replace the connection string with a cloud-
 
 <div align="center">
   
-## 👥 Contributors 👥
+## Contributors 👥
 
 </div>Sheila Gomez: Lead front-end developer using HTML, CSS, JavaScript, React, and Procreate. Responsible for creating user interfaces, logo art, and documentation.
 
@@ -201,6 +201,6 @@ Jeremy: Back-end developer using Node.js, Express.js, MongoDB, and React. Collab
 
 <div align="center">
   
-  ## 📜 License 📜
+  ## License 📜
 
 </div>This project is licensed under the Apache License 2.0.
