@@ -33,6 +33,7 @@ function App() {
         <Route path="/beach" element={<Beach />} />
         <Route path="/forest" element={<Forest />} />
         <Route path="/mountain" element={<Mountain />} />
+        <Route path="*" element={<Home />} />
       </Routes>
     </Container>
   );
